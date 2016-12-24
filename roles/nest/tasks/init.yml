@@ -1,0 +1,71 @@
+---
+- block:
+    - name: update apt
+      apt: update_cache=yes
+      when: ansible_pkg_mgr == "apt"
+    
+    - name: update pacman
+      pacman:
+        update_cache: yes
+        upgrade: yes
+      when: ansible_pkg_mgr == "pacman"
+
+    - name: install init packages with pacman
+      pacman:
+        name: "{{ item }} "
+        state: present
+      when: ansible_pkg_mgr == "pacman"
+      with_items:
+        - dialog
+        - sudo
+        - python2
+
+    - name: disable root login
+      lineinfile:
+        dest: /etc/ssh/sshd_config
+        line: PermitRootLogin no
+        regexp: PermitRootLogin
+      notify:
+        - restart ssh
+
+    - name: ensure ssh is running (and enabled)
+      service:
+        name: "{{ ssh_service_name }}"
+        enabled: yes
+      notify:
+        - restart ssh
+
+    - name: set hostname
+      hostname:
+        name: "{{ nest_hostname }}"
+  become: true
+
+- block:
+    - name: ensure nest group
+      group:
+        name: "{{ nest_user_group }}"
+        state: present
+
+    - name: ensure nest user
+      user:
+        name: "{{ nest_user_name }}"
+        groups: "{{ nest_user_group }}"
+        append: yes
+        generate_ssh_key: yes
+        password: "{{ nest_user_pass }}"
+
+    - name: ensure root privileges for nest user
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: "^{{ nest_user_name }} ALL"
+        line: "{{ nest_user_name }} ALL=(ALL) NOPASSWD:ALL"
+        validate: "visudo -cf %s"
+
+    - name: add authorized key of controll machine 
+      authorized_key:
+        user: "{{ nest_user_name }}"
+        key: "{{ lookup('file', nest_authorized_key_file) }}"
+    
+  when: nest_user_configure
+  become: true

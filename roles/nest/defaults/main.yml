@@ -1,0 +1,15 @@
+nest_debug: true
+nest_user_configure: true
+nest_user_name:  ko
+nest_user_group: ko
+nest_user_pass:  ~
+nest_user_home:  /home/ko
+nest_authorized_key_file: /Users/ko/.ssh/id_rsa.pub
+nest_git_configure: true
+nest_git_mail: entengelb@gmail.com
+nest_zsh_configure: true
+nest_zsh_theme: ko
+nest_zsh_plugins: git
+nest_packages: ~
+nest_aur_packages: ~
+nest_hostname: "{{ inventory_hostname }}"

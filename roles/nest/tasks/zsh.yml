@@ -1,0 +1,27 @@
+---
+- block:
+    - package: name=zsh
+    - user:
+        name: "{{ nest_user_name }}"
+        shell: /bin/zsh
+  become: true
+
+- block:
+    - name: checkout oh my zsh
+      git:
+        repo: git://github.com/robbyrussell/oh-my-zsh.git
+        dest: "{{ nest_user_home }}/.oh-my-zsh"
+        accept_hostkey: yes
+
+    - name: set .zshrc
+      template:
+        src: zshrc.j2
+        dest: "{{ nest_user_home }}/.zshrc"
+
+    - name: copy ko zsh theme
+      copy:
+        src: zsh-ko.zsh-theme
+        dest: "{{ nest_user_home }}/.oh-my-zsh/custom/ko.zsh-theme"
+      when: nest_zsh_theme == "ko"
+  become: true
+  become_user: "{{ nest_user_name }}"

@@ -1,0 +1,12 @@
+---
+- name: restart acpid
+  become: true
+  service: 
+    name: acpid 
+    state: restarted
+
+- name: restart thinkfan
+  become: true
+  service: 
+    name: thinkfan 
+    state: restarted

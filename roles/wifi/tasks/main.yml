@@ -1,0 +1,33 @@
+---
+- name: ensure wifi related packages
+  become: true
+  pacman: name={{ item }} state=present
+  with_items:
+    - dialog
+    - wpa_supplicant
+  when: ansible_pkg_mgr == "pacman"
+
+- name: place wifi config file
+  become: true
+  template:
+    src: netctl-wifi.j2
+    dest: "/etc/netctl/{{ wifi_profile }}"
+    owner: root
+    group: root
+    mode: 0600
+  notify:
+    - "restart wifi {{ wifi_profile }}"
+
+- name: start wifi {{ wifi_profile }}
+  become: true
+  service:
+    name: "netctl@{{ wifi_profile }}"
+    enabled: true
+  notify:
+    - "restart wifi {{ wifi_profile }}"
+
+- name: enable profile via netctl
+  become: true
+  command: netctl enable "{{ wifi_profile }}"
+  args:
+    creates: "/etc/systemd/system/multi-user.target.wants/netctl@{{ wifi_profile }}.service"

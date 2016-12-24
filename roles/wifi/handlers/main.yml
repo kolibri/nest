@@ -1,0 +1,6 @@
+---
+- name: "restart wifi {{ wifi_profile }}"
+  become: true
+  service:
+    name: "netctl@{{ wifi_profile }}"
+    state: restarted

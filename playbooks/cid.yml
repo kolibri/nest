@@ -1,0 +1,6 @@
+---
+- hosts: cid.*
+  roles:
+    - nest
+    - thinkpad
+    - wifi

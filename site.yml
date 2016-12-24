@@ -1,0 +1,6 @@
+---
+- hosts: all
+  tasks:
+    - debug:  var=hostvars
+
+- include: playbooks/cid.yml

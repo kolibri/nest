@@ -1,0 +1,47 @@
+---
+- name: Include OS-Specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags: [always]
+
+- name: include init scripts
+  include: init.yml
+  tags: [init]
+
+- name: include git scripts
+  include: git.yml
+  when: nest_git_configure
+  tags: [git]
+
+- name: include zsh scripts
+  include: zsh.yml
+  when: nest_zsh_configure
+  tags: [zsh]
+
+- name: ensure additional packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ nest_packages }}"
+  when: nest_packages
+
+- name: install aur packages
+  include_role:
+    name: aur
+  vars:
+    pkg_name: "{{ item }}"
+  with_items: "{{ nest_aur_packages }}"
+  when: (nest_aur_packages) and
+        (ansible_distribution == "Archlinux")
+
+- name: ensure virtual gox guest additions
+  become: true
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - virtualbox-guest-utils
+#    - virtualbox-guest-modules-arch
+  when: (ansible_virtualization_role == "guest") and
+        (ansible_virtualization_type == "virtualbox") and 
+        (ansible_distribution == "Archlinux")
