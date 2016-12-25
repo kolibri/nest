@@ -6,7 +6,7 @@
     state: latest
   with_items:
     - xf86-video-intel
-    - xf86-input-synaptics
+    - xf86-input-libinput
     - acpid
     - lm_sensors
     - pulseaudio
