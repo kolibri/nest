@@ -1,0 +1,34 @@
+---
+- name: place config files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: 
+    - { src: "xinitrc",   dest: "{{ nest_user_home }}/.xinitrc" }
+    - { src: "Xdefaults", dest: "{{ nest_user_home }}/.Xdefaults" }
+    - { src: "startx.zsh", dest: "{{ nest_zsh_custom_dir }}/zz_startx.zsh" }
+
+#- name: remove old awesome config dir
+#  file:
+#    path: "{{ nest_user_home }}/.config/awesome"
+#    state: absent
+
+- name: ensure awesome config dir
+  file:
+    path: "{{ nest_user_home }}/.config/awesome"
+    state: directory
+
+- name: set awesome default config
+  copy:
+    src: /etc/xdg/awesome/rc.lua
+    dest: "{{ nest_user_home }}/.config/awesome/rc.lua"
+    remote_src: true
+  when: awesome_ko_theme|default(false) == false
+
+- name: ensure awesome ko theme
+  git:
+    repo: https://github.com/kolibri/ko-awesome-theme.git
+    dest: "{{ nest_user_home }}/.config/awesome"
+    update: yes
+    accept_hostkey: yes
+  when: awesome_ko_theme|default(false)

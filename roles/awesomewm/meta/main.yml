@@ -1,0 +1,3 @@
+---
+dependencies:
+  - { role: nest, nest_zsh_configure: true }

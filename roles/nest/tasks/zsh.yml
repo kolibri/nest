@@ -18,10 +18,21 @@
         src: zshrc.j2
         dest: "{{ nest_user_home }}/.zshrc"
 
+    - name: ensure oh my zsh custom dir
+      file:
+        path: "{{ nest_zsh_custom_dir }}"
+        state: directory
+
     - name: copy ko zsh theme
       copy:
-        src: zsh-ko.zsh-theme
-        dest: "{{ nest_user_home }}/.oh-my-zsh/custom/ko.zsh-theme"
+        src: ko.zsh-theme
+        dest: "{{ nest_zsh_custom_dir }}/ko.zsh-theme"
       when: nest_zsh_theme == "ko"
+
+    - name: copy ko zsh functions
+      copy:
+        src: shrink_shell.zsh
+        dest: "{{ nest_zsh_custom_dir }}/shrink_shell.zsh"
+    
   become: true
   become_user: "{{ nest_user_name }}"

@@ -1,0 +1,5 @@
+---
+awesome_ko_theme: true
+awesome_monitor_size: 309 173 #in mm, defaults to thinkpad 42s
+awesome_keyboard_layout: de
+awesome_keyboard_variant: nodeadkeys

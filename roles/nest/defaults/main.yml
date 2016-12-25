@@ -10,6 +10,7 @@ nest_git_mail: entengelb@gmail.com
 nest_zsh_configure: true
 nest_zsh_theme: ko
 nest_zsh_plugins: git
+nest_zsh_custom_dir: "{{ nest_user_home }}/.ko/zsh"
 nest_packages: ~
 nest_aur_packages: ~
 nest_hostname: "{{ inventory_hostname }}"
@@ -17,9 +18,10 @@ nest_locale_configure: true
 nest_locale_generate: 
   - de_DE.UTF-8
   - en_DK.UTF-8
+  - en_US.UTF-8
 nest_locale_keymap: de-latin1-nodeadkeys
 nest_locale_timezone: Europe/Berlin
-nest_locale_date: en_DK.utf8
-nest_locale_numeric: en_DK.utf8
-nest_locale_time: en_DK.utf8
-nest_locale_lang: de_DE.utf8
+nest_locale_date: en_DK.UTF-8
+nest_locale_numeric: en_DK.UTF-8
+nest_locale_time: en_DK.UTF-8
+nest_locale_lang: de_DE.UTF-8

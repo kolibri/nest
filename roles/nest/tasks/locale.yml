@@ -3,7 +3,7 @@
   become: true
   lineinfile:
     dest: /etc/locale.gen
-    regexp: '#{0,1}\w*(de_DE.UTF-8.*)'
+    regexp: '#{0,1}\w*({{ item }}.*)'
     line: '\1'
     backrefs: true
     state: present

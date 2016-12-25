@@ -9,6 +9,7 @@
     - xf86-input-synaptics
     - acpid
     - lm_sensors
+    - pulseaudio
   when: ansible_pkg_mgr == "pacman"
 
 - name: install aur packages

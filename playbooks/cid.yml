@@ -2,5 +2,6 @@
 - hosts: cid.*
   roles:
     - nest
+    - awesomewm
     - thinkpad
     - wifi
