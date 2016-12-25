@@ -25,3 +25,4 @@ nest_locale_date: en_DK.UTF-8
 nest_locale_numeric: en_DK.UTF-8
 nest_locale_time: en_DK.UTF-8
 nest_locale_lang: de_DE.UTF-8
+nest_hosts: ~

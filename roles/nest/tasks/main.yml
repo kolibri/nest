@@ -39,6 +39,21 @@
   when: (nest_aur_packages) and
         (ansible_distribution == "Archlinux")
 
+- name: place this host in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ inventory_hostname }}"
+
+- name: place other hosts in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item.ip }} {{ item.host }}"
+  with_items: "{{ nest_hosts }}"
+  when: nest_hosts|default(false) and 
+        item.host != inventory_hostname
+
 - name: ensure virtual gox guest additions
   become: true
   pacman:
