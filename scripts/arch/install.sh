@@ -41,8 +41,6 @@ echo '==> generating the filesystem table'
 arch-chroot /mnt hwclock --systohc
 arch-chroot /mnt echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen    # Für Deutschland
 arch-chroot /mnt locale-gen
-arch-chroot /mnt echo LANG=de_DE.UTF-8 > /etc/locale.conf
-arch-chroot /mnt echo KEYMAP=de-latin1-nodeadkeys > /etc/vconsole.conf
 arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
     arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt /usr/bin/usermod --password `/usr/bin/openssl passwd -crypt 'root'` root

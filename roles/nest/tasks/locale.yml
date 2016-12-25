@@ -1,0 +1,35 @@
+---
+- name: update locales.gen
+  become: true
+  lineinfile:
+    dest: /etc/locale.gen
+    regexp: '#{0,1}\w*(de_DE.UTF-8.*)'
+    line: '\1'
+    backrefs: true
+    state: present
+  with_items: "{{ nest_locale_generate }}"
+  register: locale_gen_file
+
+- name: generate locales
+  become: true
+  command: locale-gen
+
+- name: place global locale files
+  become: true
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: 
+    -
+      src: locale.conf.j2
+      dest: /etc/locale.conf
+    -
+      src: vconsole.conf.j2
+      dest: /etc/vconsole.conf
+
+- name: ensure time settings
+  become: true
+  file:
+    src: "/usr/share/zoneinfo/{{ nest_locale_timezone }}"
+    dest: /etc/localtime
+    state: link
