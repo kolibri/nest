@@ -20,7 +20,7 @@
       value: "{{ nest_git_mail }}"
     -
       ns:    user
-      name:  email
+      name:  name
       value: "{{ nest_git_user|default(nest_user_name) }}"
     -
       ns:    push
