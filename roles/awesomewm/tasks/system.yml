@@ -16,6 +16,7 @@
     - vicious
     - xterm
     - qt4
+    - iw
     #- xorg-xdm
     - qiv
     - ntp
