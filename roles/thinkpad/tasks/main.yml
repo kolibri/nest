@@ -70,6 +70,18 @@
   notify:
     - restart acpid    
 
+- name: place touchpad toggle scripts
+  become: true
+  copy: 
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root 
+    group: root 
+    mode: 0755
+  with_items: 
+    - { src: touchpad_toggle.sh, dest: /usr/local/bin/touchpad_toggle.sh }
+    - { src: touchpad_status.sh, dest: /usr/local/bin/touchpad_status.sh }
+
 - name: setup thinkfan modprobe config
   become: true
   modprobe: 
