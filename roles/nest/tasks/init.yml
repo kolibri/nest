@@ -24,7 +24,7 @@
       lineinfile:
         dest: /etc/ssh/sshd_config
         line: PermitRootLogin no
-        regexp: PermitRootLogin
+        regexp: PermitRootLogin yes
       notify:
         - restart ssh
 
