@@ -1,7 +1,0 @@
-cid.ko ansible_host=192.168.178.23
-
-[arch]
-cid.ko
-
-[arch:vars]
-ansible_python_interpreter=/usr/bin/python2
