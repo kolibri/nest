@@ -1,43 +1,17 @@
 # Nest
 
-## How to reinstall archlinux
+This is the base repo for my provision scripts.
 
-###Create bootable usb stick
+Use it for inspiration or something like that.
 
-- [http://mirror.netcologne.de/archlinux/iso/latest/](Download archlinux iso)
+(You also welcome to make suggestions)
 
-#### on Osx
+## Docs
+- [(re)Install Archlinux (x64)](docs/install_archlinux.md)
 
-- `./scripts/arch/create-usb-stick-on-osx.sh` follow instructions
 
-### Step trough installation
+## Nest?
 
-On target machine
-- insert boot media, boot from it
-- `loadkeys de-latin1`
-- `passwd` for root password
-- check `etc/ssh/sshd_config` for `PermitRootLogin yes`
-- `systmctl start sshd.service`
-- ensure network connection (`wifi-menu`)
+The metapher is about a birds nest. Birds lay eggs (like you may create new machines), they hatch it (like you provision your machines), and they teach the little birds to fly (like you throw you machines againts a wall, whem they don't do, what you think you told them)
 
-On controll machine:
-- `ssh-copy-id root@IP-ADDRESS`
-- `ssh root@IP-ADDRESS 'bash -s' < scripts/arch/install.sh`
-
-On target machine:
-- `reboot`
-Then:
-- ensure network connection (`wifi-menu`)
-
-On controll machine:
-- adjust IP-adress in `inventory/real/hosts`
-- `ssh-copy-id root@IP-ADDRESS` (password is `root`)
-- `!> ansible-playbook -i inventory/real/hosts  -l cid.ko -u root -t init site.yml`
-After this, drop `-u root` and `-t init`
-- `ansible-playbook -i inventory/real/hosts  -l cid.ko site.yml`
-
-If starting of thinkfan service is failing on first attempt, try `reboot`ing target machine and repat provisioning.
-
-#### Post install steps:
-
-- Remove obsolete configs from `etc/netctl`
+Yeah, I like birds!
