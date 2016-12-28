@@ -10,9 +10,9 @@
 
 - name: ensure git config
   become: true
-  become_user: "{{ nest_user_name }}"
+  become_user: "{{ ko_user_name }}"
   ini_file:
-    dest:    "{{ nest_user_home }}/.gitconfig"
+    dest:    "{{ ko_user_home }}/.gitconfig"
     section: "{{ item.ns }}"
     option:  "{{ item.name }}"
     value:   "{{ item.value }}"
@@ -20,11 +20,11 @@
     -
       ns:    user
       name:  email
-      value: "{{ nest_git_mail }}"
+      value: "{{ ko_git_mail }}"
     -
       ns:    user
       name:  name
-      value: "{{ nest_git_user|default(nest_user_name) }}"
+      value: "{{ ko_git_user|default(ko_user_name) }}"
     -
       ns:    push
       name:  default
@@ -32,4 +32,4 @@
     -
       ns:    core
       name:  excludesfile
-      value: "{{ nest_user_home }}/.gitignore"
+      value: "{{ ko_user_home }}/.gitignore"

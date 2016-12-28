@@ -2,7 +2,7 @@
 - block:
     - package: name=zsh
     - user:
-        name: "{{ nest_user_name }}"
+        name: "{{ ko_user_name }}"
         shell: /bin/zsh
   become: true
 
@@ -10,29 +10,29 @@
     - name: checkout oh my zsh
       git:
         repo: git://github.com/robbyrussell/oh-my-zsh.git
-        dest: "{{ nest_user_home }}/.oh-my-zsh"
+        dest: "{{ ko_user_home }}/.oh-my-zsh"
         accept_hostkey: yes
 
     - name: set .zshrc
       template:
         src: zshrc.j2
-        dest: "{{ nest_user_home }}/.zshrc"
+        dest: "{{ ko_user_home }}/.zshrc"
 
     - name: ensure oh my zsh custom dir
       file:
-        path: "{{ nest_zsh_custom_dir }}"
+        path: "{{ ko_zsh_custom_dir }}"
         state: directory
 
     - name: copy ko zsh theme
       copy:
         src: ko.zsh-theme
-        dest: "{{ nest_zsh_custom_dir }}/ko.zsh-theme"
-      when: nest_zsh_theme == "ko"
+        dest: "{{ ko_zsh_custom_dir }}/ko.zsh-theme"
+      when: ko_zsh_theme == "ko"
 
     - name: copy ko zsh functions
       copy:
         src: shrink_shell.zsh
-        dest: "{{ nest_zsh_custom_dir }}/shrink_shell.zsh"
+        dest: "{{ ko_zsh_custom_dir }}/shrink_shell.zsh"
     
   become: true
-  become_user: "{{ nest_user_name }}"
+  become_user: "{{ ko_user_name }}"

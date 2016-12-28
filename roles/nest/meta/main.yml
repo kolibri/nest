@@ -1,3 +1,4 @@
 ---
 dependencies:
-  - { role: aur, when: ansible_distribution == "Archlinux" }
+  - { role: ko }
+  - { role: ansible }

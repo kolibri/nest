@@ -6,8 +6,8 @@
       - chromium
       - vlc
   roles:
-    - role: nest
-      tags: [nest]
+    - role: ko
+      tags: [ko]
     - role: awesomewm
       tags: [awesome]
     - role: thinkpad
