@@ -1,0 +1,5 @@
+---
+nest_path: "{{ ko_user_home }}/nest"
+nest_hosts: []
+nest_groups: []
+nest_inventory_path: "{{ nest_path }}/inventory/real"

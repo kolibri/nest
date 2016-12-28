@@ -1,0 +1,18 @@
+{% for host, vars in nest_hosts.iteritems() %}
+{{ host }}{% if vars.ip is defined %} ansible_host={{ vars.ip }}{% endif %}
+
+{% endfor %}
+
+{% for group, group_vars in nest_groups.iteritems() %}
+[{{ group }}]
+{% for host, host_vars in nest_hosts.iteritems() if host_vars.groups is defined and group in host_vars.groups %}
+{{ host }}
+{% endfor %}
+{% endfor %}
+
+{% for group, group_vars in nest_groups.iteritems() %}
+[{{ group }}:vars]
+{% for key, val in group_vars.iteritems() %}
+{{ key }}={{ val }}
+{% endfor %}
+{% endfor %}

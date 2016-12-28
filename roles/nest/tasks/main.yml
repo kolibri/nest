@@ -1,1 +1,16 @@
 ---
+- name: place nest repo
+  git:
+    repo: git@github.com:kolibri/nest.git
+    dest: "{{ nest_path }}"
+    accept_hostkey: yes
+
+- name: ensure inventory dir
+  file:
+    dest: "{{ nest_inventory_path }}"
+    state: directory
+
+- name: place inventory file
+  template:
+    src: inventory.j2
+    dest: "{{ nest_inventory_path }}/hosts"
