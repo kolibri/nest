@@ -1,0 +1,8 @@
+---
+- name: place cronjob
+  cron:
+    name: "provision real hosts"
+    minute: "*/5"
+    #hour: "*/1"
+    job: "{{ nest_path }}/.nest.sh"
+    user: "{{ nest_user }}"

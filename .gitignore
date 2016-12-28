@@ -1,3 +1,4 @@
 *.iso
 inventory/real/*
 bucket/*
+logs/*

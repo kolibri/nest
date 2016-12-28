@@ -43,3 +43,6 @@
   delegate_to: "{{ item.key }}"
   with_dict: "{{ nest_hosts }}"
   when: item.key != inventory_hostname
+
+- include: autorun.yml
+  when: nest_autorun|default(false)
