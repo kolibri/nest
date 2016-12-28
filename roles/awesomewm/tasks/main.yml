@@ -1,9 +1,7 @@
 ---
 - include: system.yml
   become: true
-  tags: [awesome]
 
 - include: user.yml
   become: true
   become_user: "{{ nest_user_name }}"
-  tags: [awesome]

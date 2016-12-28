@@ -22,6 +22,6 @@ Use it for inspiration or something like that.
 
 ## Nest?
 
-The metapher is about a birds nest. Birds lay eggs (like you may create new machines), they hatch it (like you provision your machines), and they teach the little birds to fly (like you throw you machines agains a wall, whem they don't do, what you think you told them)
+The metapher is about a birds nest. Birds lay eggs (like you may create new machines), they hatch it (like you provision your machines), and they teach the little birds to fly (like you throw you machines agains a wall, when they don't do, what you think you told them)
 
 Yeah, I like birds!

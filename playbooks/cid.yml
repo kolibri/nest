@@ -1,8 +1,18 @@
 ---
 - hosts: cid.*
+  vars:
+    nest_packages:
+      - firefox
+      - chromium
+      - vlc
   roles:
-    - nest
-    - awesomewm
-    - thinkpad
-    - wifi
-    - sublimetext
+    - role: nest
+      tags: [nest]
+    - role: awesomewm
+      tags: [awesome]
+    - role: thinkpad
+      tags: [thinkpad]
+    - role: wifi
+      tags: [wifi]
+    - role: sublimetext
+      tags: [sublime]

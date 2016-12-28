@@ -1,4 +1,3 @@
 ---
 - include: linux.yml
   when: ansible_system == "Linux"
-  tags: [sublime]
