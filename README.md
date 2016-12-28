@@ -7,7 +7,10 @@ Use it for inspiration or something like that.
 (You also welcome to make suggestions)
 
 ## Docs
-- [(re)Install Archlinux (x64)](docs/install_archlinux.md)
+- [(re)Install Archlinux (x64)](docs/install_archlinux_x64.md)
+- [(re)Install Archlinux (arm)](docs/install_archlinux_arm.md)
+- [Description of hosts](docs/hosts.md)
+
 
 ## Status (what is covered by this repo aka 'my little todo list')
 
@@ -15,6 +18,7 @@ Use it for inspiration or something like that.
 - [ ] Install & provision Archlinux on a raspberry pi 2
 - [ ] Auto-Provisioning
 - [ ] Provision macOS
+
 
 ## Nest?
 

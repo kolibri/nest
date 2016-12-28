@@ -4,3 +4,4 @@
     - debug:  var=hostvars
 
 - include: playbooks/cid.yml
+- include: playbooks/cloud.yml
