@@ -27,7 +27,7 @@ Cloud Strife is the boss of the party, and the charakter with the lowest self es
 
 ![Aerith Gainsborough](https://github.com/kolibri/nest/blob/master/docs/host-pics/aerith.png)
 
-Aerith is a iMac running masOS.
+Aerith is a iMac running macOS.
 
 ### Why this name
 
