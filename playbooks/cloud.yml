@@ -1,9 +1,6 @@
 ---
 - hosts: cloud.*
   roles:
-    - role: ko
-      tags: [ko]
-    - role: ansible
-      tags: [ansible]
-    - role: nest
-      tags: [nest]
+    - ko
+    - ansible
+    - nest

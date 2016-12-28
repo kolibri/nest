@@ -6,13 +6,8 @@
       - chromium
       - vlc
   roles:
-    - role: ko
-      tags: [ko]
-    - role: awesomewm
-      tags: [awesome]
-    - role: thinkpad
-      tags: [thinkpad]
-    - role: wifi
-      tags: [wifi]
-    - role: sublimetext
-      tags: [sublime]
+    - ko
+    - awesomewm
+    - thinkpad
+    - wifi
+    - sublimetext
