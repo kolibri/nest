@@ -15,34 +15,8 @@
     src: inventory.j2
     dest: "{{ nest_inventory_path }}/hosts"
 
-- name: copy inventory configuration from control machine
-  copy:
-    src: "{{ nest_inventory_config_dir }}/{{ item }}"
-    dest: "{{ nest_inventory_path }}/"
-  when: nest_inventory_config_dir|default(false)
-  with_items: 
-    - group_vars
-    - host_vars
-
-- name: get public key string
-  shell: "cat {{ nest_ssh_key_path }}"
-  register: nest_ssh_key
-
-- name: add other hosts for adding ssh key
-  add_host:
-    name: "{{ item.key }}"
-    ansible_host: "{{ item.value.ip }}"
-    groups: "{{ item.value.groups }}"
-  with_dict: "{{ nest_hosts }}"
-  when: item.key != inventory_hostname
-
-- name: add authorized key of controll machine 
-  authorized_key:
-    user: "{{ ko_user_name }}"
-    key: "{{ nest_ssh_key.stdout }}"
-  delegate_to: "{{ item.key }}"
-  with_dict: "{{ nest_hosts }}"
-  when: item.key != inventory_hostname
+- include: copy_config.yml
+  when: nest_copy_configuration|default(false)
 
 - include: autorun.yml
   when: nest_autorun|default(false)

@@ -6,3 +6,5 @@ nest_hosts: []
 nest_groups: []
 nest_inventory_config_dir: "{{ inventory_dir }}/"
 nest_inventory_path: "{{ nest_path }}/inventory/real"
+nest_autorun: false
+nest_copy_configuration: false
