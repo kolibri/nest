@@ -1,5 +1,7 @@
 ---
 nest_path: "{{ ko_user_home }}/nest"
+nest_ssh_key_path: "{{ ko_user_home }}/.ssh/id_rsa.pub"
 nest_hosts: []
 nest_groups: []
+nest_inventory_config_dir: "{{ inventory_dir }}/"
 nest_inventory_path: "{{ nest_path }}/inventory/real"

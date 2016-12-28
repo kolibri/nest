@@ -1,4 +1,5 @@
-{% for host, vars in nest_hosts.iteritems() %}
+{{ inventory_hostname }} ansible_connection=local
+{% for host, vars in nest_hosts.iteritems() if host != inventory_hostname %}
 {{ host }}{% if vars.ip is defined %} ansible_host={{ vars.ip }}{% endif %}
 
 {% endfor %}
