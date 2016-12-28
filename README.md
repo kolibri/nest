@@ -15,7 +15,7 @@ Use it for inspiration or something like that.
 ## Status (what is covered by this repo aka 'my little todo list')
 
 - [x] Install & provision Archlinux on a Thinkpad T420s
-- [ ] Install & provision Archlinux on a raspberry pi 2
+- [x] Install & provision Archlinux on a raspberry pi 2
 - [ ] Auto-Provisioning
 - [ ] Provision macOS
 
