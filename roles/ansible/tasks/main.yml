@@ -1,19 +1,7 @@
 ---
-- name: ensure easy_install
-  become: true
-  package:
-    name: python-setuptools
-    state: latest
-
-- name: ensure pip
-  become: true
-  easy_install:
-    name: pip
-    state: latest  
-
 - name: ensure ansible
   become: true
-  pip:
+  package:
     name: "{{ item }}"
     state: latest
   with_items: 

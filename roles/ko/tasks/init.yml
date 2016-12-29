@@ -69,7 +69,7 @@
       authorized_key:
         user: "{{ ko_user_name }}"
         key: "{{ lookup('file', ko_authorized_key_file) }}"
-      when: ansible_connection != local
+      when: ansible_connection != "local"
     
   when: ko_user_configure
   become: true

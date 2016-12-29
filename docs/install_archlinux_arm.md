@@ -9,9 +9,11 @@
 
 ## After booting
 
+*Replace `cloud.ko` with actual hostname/IP-address*
+
 On controll machine:
-- `ssh-copy-id alarm@IP-ADDRESS` (password is `alarm`)
-- `ssh alarm@IP-ADDRESS 'su root -c "pacman -S --noconfirm python2 sudo"' (password is `root`)
+- `ssh-copy-id alarm@cloud.ko` (password is `alarm`)
+- `ssh alarm@cloud.ko 'su root -c "pacman -Syu --noconfirm && pacman -S --noconfirm python2 sudo"'` (password is `root`)
 - adjust IP-adress in `inventory/real/hosts`
 - `ansible-playbook -i inventory/real/hosts  -l cloud.ko -u alarm -t init -K --become-method=su site.yml` (SU password: `root`)
 
