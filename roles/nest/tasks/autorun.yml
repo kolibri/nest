@@ -12,10 +12,16 @@
     - { src: nest.timer, dest: nest.timer }
     - { src: nest.service, dest: nest.service }
 
-- name: start nest autorun
-  systemd:
-    enabled: true
-    daemon_reload: yes
-    name: nest.timer
-    user: true
-  notify: restart nest autorun
+#- name: start nest autorun
+#  systemd:
+#    enabled: true
+#    daemon_reload: yes
+#    name: nest.timer
+#    user: true
+#  notify: restart nest autorun
+
+# todo: find nice solution for this
+- name: ensure export PATH to systemd
+  copy:
+    src: systemd-import-path.zsh
+    dest: "{{ ko_zsh_custom_dir }}/systemd-import-path.zsh"
