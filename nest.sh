@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 LOGDIR="`dirname $0`/logs"
 mkdir -p ${LOGDIR}

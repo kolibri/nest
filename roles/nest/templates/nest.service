@@ -1,0 +1,9 @@
+[Unit]
+Description=Run nest provision
+
+[Service]
+ExecStart={{ nest_autorun_cmd }}
+Type=oneshot
+
+[Install]
+WantedBy=default.target
