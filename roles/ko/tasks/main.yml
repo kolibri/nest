@@ -36,7 +36,7 @@
   vars:
     pkg_name: "{{ item }}"
   with_items: "{{ ko_aur_packages }}"
-  when: (ko_aur_packages) and
+  when: ko_aur_packages|default(false) and
         (ansible_distribution == "Archlinux")
 
 - name: place this host in /etc/hosts
