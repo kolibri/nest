@@ -11,6 +11,6 @@ nest_inventory_config_dir: "{{ inventory_dir }}/"
 nest_copy_configuration: false # if true, module will copy configs from control to target machine
 
 nest_autorun: false
-nest_autorun_period: 5m
+nest_autorun_period: 1h
 nest_autorun_boot_delay: 5m
 nest_autorun_cmd: "{{ nest_path }}/nest.sh"
