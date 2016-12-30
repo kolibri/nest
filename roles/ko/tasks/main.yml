@@ -28,7 +28,6 @@
     name: "{{ item }}"
     state: latest
   with_items: "{{ ko_packages }}"
-  when: ko_packages
 
 - name: install aur packages
   include_role:
@@ -36,8 +35,7 @@
   vars:
     pkg_name: "{{ item }}"
   with_items: "{{ ko_aur_packages }}"
-  when: ko_aur_packages|default(false) and
-        (ansible_distribution == "Archlinux")
+  when: ansible_distribution == "Archlinux"
 
 - name: place this host in /etc/hosts
   become: true
@@ -51,8 +49,7 @@
     dest: /etc/hosts
     line: "{{ item.ip }} {{ item.host }}"
   with_items: "{{ ko_hosts }}"
-  when: ko_hosts|default(false) and 
-        item.host != inventory_hostname
+  when: item.host != inventory_hostname
 
 - name: ensure virtual gox guest additions
   become: true

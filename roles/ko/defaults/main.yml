@@ -11,8 +11,8 @@ ko_zsh_configure: true
 ko_zsh_theme: ko
 ko_zsh_plugins: git
 ko_zsh_custom_dir: "{{ ko_user_home }}/.ko/zsh"
-ko_packages: ~
-ko_aur_packages: ~
+ko_packages: []
+ko_aur_packages: []
 ko_hostname: "{{ inventory_hostname }}"
 ko_locale_configure: true
 ko_locale_generate: 
@@ -25,4 +25,4 @@ ko_locale_date: en_DK.UTF-8
 ko_locale_numeric: en_DK.UTF-8
 ko_locale_time: en_DK.UTF-8
 ko_locale_lang: en_US.UTF-8
-ko_hosts: ~
+ko_hosts: []
