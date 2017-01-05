@@ -1,5 +1,7 @@
-- name: restart ssh
-  become: true
-  service:
-    name: "{{ ssh_service_name }}"
+---
+- name: restart nest autorun
+  systemd:
     state: restarted
+    daemon_reload: yes
+    name: nest.timer
+    user: true

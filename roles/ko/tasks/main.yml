@@ -1,0 +1,64 @@
+---
+- name: Include OS-Specific variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags: [always]
+
+- name: include init scripts
+  include: init.yml
+  tags: [init]
+
+- name: include locale scripts
+  include: locale.yml
+  when: ko_locale_configure
+  tags: [locale]
+
+- name: include git scripts
+  include: git.yml
+  when: ko_git_configure
+  tags: [git]
+
+- name: include zsh scripts
+  include: zsh.yml
+  when: ko_zsh_configure
+  tags: [zsh]
+
+- name: ensure additional packages
+  become: true
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ ko_packages }}"
+
+- name: install aur packages
+  include_role:
+    name: aur
+  vars:
+    pkg_name: "{{ item }}"
+  with_items: "{{ ko_aur_packages }}"
+  when: ansible_distribution == "Archlinux"
+
+- name: place this host in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ inventory_hostname }}"
+
+- name: place other hosts in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item.ip }} {{ item.host }}"
+  with_items: "{{ ko_hosts }}"
+  when: item.host != inventory_hostname
+
+- name: ensure virtual gox guest additions
+  become: true
+  pacman:
+    name: "{{ item }}"
+    state: latest
+  with_items: 
+    - virtualbox-guest-utils
+#    - virtualbox-guest-modules-arch
+  when: (ansible_virtualization_role == "guest") and
+        (ansible_virtualization_type == "virtualbox") and 
+        (ansible_distribution == "Archlinux")

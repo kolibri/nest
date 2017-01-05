@@ -1,67 +1,22 @@
 ---
-- name: Include OS-Specific variables
-  include_vars: "{{ ansible_os_family }}.yml"
-  tags: [always]
+- name: place nest repo
+  git:
+    repo: git@github.com:kolibri/nest.git
+    dest: "{{ nest_path }}"
+    accept_hostkey: yes
 
-- name: include init scripts
-  include: init.yml
-  tags: [init]
+- name: ensure inventory dir
+  file:
+    dest: "{{ nest_inventory_path }}"
+    state: directory
 
-- name: include locale scripts
-  include: locale.yml
-  when: nest_locale_configure
-  tags: [locale]
+- name: place inventory file
+  template:
+    src: inventory.j2
+    dest: "{{ nest_inventory_path }}/hosts"
 
-- name: include git scripts
-  include: git.yml
-  when: nest_git_configure
-  tags: [git]
+- include: copy_config.yml
+  when: nest_copy_configuration|default(false)
 
-- name: include zsh scripts
-  include: zsh.yml
-  when: nest_zsh_configure
-  tags: [zsh]
-
-- name: ensure additional packages
-  become: true
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items: "{{ nest_packages }}"
-  when: nest_packages
-
-- name: install aur packages
-  include_role:
-    name: aur
-  vars:
-    pkg_name: "{{ item }}"
-  with_items: "{{ nest_aur_packages }}"
-  when: (nest_aur_packages) and
-        (ansible_distribution == "Archlinux")
-
-- name: place this host in /etc/hosts
-  become: true
-  lineinfile:
-    dest: /etc/hosts
-    line: "127.0.0.1 {{ inventory_hostname }}"
-
-- name: place other hosts in /etc/hosts
-  become: true
-  lineinfile:
-    dest: /etc/hosts
-    line: "{{ item.ip }} {{ item.host }}"
-  with_items: "{{ nest_hosts }}"
-  when: nest_hosts|default(false) and 
-        item.host != inventory_hostname
-
-- name: ensure virtual gox guest additions
-  become: true
-  pacman:
-    name: "{{ item }}"
-    state: latest
-  with_items: 
-    - virtualbox-guest-utils
-#    - virtualbox-guest-modules-arch
-  when: (ansible_virtualization_role == "guest") and
-        (ansible_virtualization_type == "virtualbox") and 
-        (ansible_distribution == "Archlinux")
+- include: autorun.yml
+  when: nest_autorun|default(false)

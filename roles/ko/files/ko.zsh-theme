@@ -1,4 +1,4 @@
-#[23:57] [aerith] [ko] [~/Development/projects/nest] [master] ⚑ ◒
+#[23:57] [aerith] [ko] [~/Development/projects/ko] [master] ⚑ ◒
 # >
 PROMPT='
 %{$fg[blue]%}[%T]%{$reset_color%} %{$fg[red]%}[%m]%{$reset_color%} %{$fg[green]%}[%n]%{$reset_color%} %{$fg[cyan]%}[%~]%{$reset_color%} $(git_prompt_info) $(git_prompt_status)

@@ -1,7 +1,12 @@
 ---
 - hosts: cid.*
+  vars:
+    ko_packages:
+      - firefox
+      - chromium
+      - vlc
   roles:
-    - nest
+    - ko
     - awesomewm
     - thinkpad
     - wifi

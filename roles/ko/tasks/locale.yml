@@ -7,7 +7,7 @@
     line: '\1'
     backrefs: true
     state: present
-  with_items: "{{ nest_locale_generate }}"
+  with_items: "{{ ko_locale_generate }}"
   register: locale_gen_file
 
 - name: generate locales
@@ -30,6 +30,6 @@
 - name: ensure time settings
   become: true
   file:
-    src: "/usr/share/zoneinfo/{{ nest_locale_timezone }}"
+    src: "/usr/share/zoneinfo/{{ ko_locale_timezone }}"
     dest: /etc/localtime
     state: link

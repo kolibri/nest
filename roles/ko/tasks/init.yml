@@ -16,15 +16,18 @@
         state: present
       when: ansible_pkg_mgr == "pacman"
       with_items:
+        - base-devel
         - dialog
         - sudo
         - python2
+        - wget
+        - dosfstools # @todo: perhaps move this out
 
     - name: disable root login
       lineinfile:
         dest: /etc/ssh/sshd_config
         line: PermitRootLogin no
-        regexp: PermitRootLogin yes
+        regexp: "^PermitRootLogin.*$"
       notify:
         - restart ssh
 
@@ -37,35 +40,36 @@
 
     - name: set hostname
       hostname:
-        name: "{{ nest_hostname }}"
+        name: "{{ ko_hostname }}"
   become: true
 
 - block:
-    - name: ensure nest group
+    - name: ensure ko group
       group:
-        name: "{{ nest_user_group }}"
+        name: "{{ ko_user_group }}"
         state: present
 
-    - name: ensure nest user
+    - name: ensure ko user
       user:
-        name: "{{ nest_user_name }}"
-        groups: "{{ nest_user_group }}"
+        name: "{{ ko_user_name }}"
+        groups: "{{ ko_user_group }}"
         append: yes
         generate_ssh_key: yes
-        password: "{{ nest_user_pass }}"
+        password: "{{ ko_user_pass }}"
 
-    - name: ensure root privileges for nest user
+    - name: ensure root privileges for ko user
       lineinfile:
         dest: /etc/sudoers
         state: present
-        regexp: "^{{ nest_user_name }} ALL"
-        line: "{{ nest_user_name }} ALL=(ALL) NOPASSWD:ALL"
+        regexp: "^{{ ko_user_name }} ALL"
+        line: "{{ ko_user_name }} ALL=(ALL) NOPASSWD:ALL"
         validate: "visudo -cf %s"
 
     - name: add authorized key of controll machine 
       authorized_key:
-        user: "{{ nest_user_name }}"
-        key: "{{ lookup('file', nest_authorized_key_file) }}"
+        user: "{{ ko_user_name }}"
+        key: "{{ lookup('file', ko_authorized_key_file) }}"
+      when: ansible_connection != "local"
     
-  when: nest_user_configure
+  when: ko_user_configure
   become: true

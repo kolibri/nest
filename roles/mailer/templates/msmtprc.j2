@@ -1,0 +1,17 @@
+# Set default values for all following accounts.
+defaults
+auth           on
+tls            on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile        ~/.msmtp.log
+
+# Gmail
+account        {{ mailer_account }}
+host           {{ mailer_account_host }}
+port           {{ mailer_account_port }}
+from           {{ mailer_account_from }}
+user           {{ mailer_account_user }}
+password       {{ mailer_account_password }}
+
+# Set a default account
+account default : {{ mailer_account }}

@@ -6,7 +6,7 @@
 
 ### on Osx
 
-- `./scripts/arch/create-usb-stick-on-osx.sh` follow instructions
+- `./scripts/arch_x64/create-usb-stick-on-osx.sh` follow instructions
 
 ## Step trough installation
 
