@@ -7,6 +7,7 @@ ko_user_home:  /home/ko
 ko_authorized_key_file: /Users/ko/.ssh/id_rsa.pub
 ko_git_configure: true
 ko_git_mail: entengelb@gmail.com
+ko_github_access_token: ~
 ko_zsh_configure: true
 ko_zsh_theme: ko
 ko_zsh_plugins: git

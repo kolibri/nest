@@ -33,3 +33,10 @@
       ns:    core
       name:  excludesfile
       value: "{{ ko_user_home }}/.gitignore"
+
+- name: place publickey at github
+  github_key:
+    name: "SSH Key for {{ ansible_nodename }} (added via ansible)"
+    pubkey: "{{ ko_user_info.ssh_public_key }}"
+    token: "{{ ko_github_access_token }}"
+  when: ko_github_access_token|default(false)
