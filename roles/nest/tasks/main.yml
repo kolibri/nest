@@ -3,6 +3,7 @@
   git:
     repo: git@github.com:kolibri/nest.git
     dest: "{{ nest_path }}"
+    force: yes
     accept_hostkey: yes
 
 - name: ensure inventory dir

@@ -51,7 +51,7 @@
   with_items: "{{ ko_hosts }}"
   when: item.host != inventory_hostname
 
-- name: ensure virtual gox guest additions
+- name: ensure virtual box guest additions
   become: true
   pacman:
     name: "{{ item }}"

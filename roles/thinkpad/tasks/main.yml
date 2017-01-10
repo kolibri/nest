@@ -12,11 +12,20 @@
     - pulseaudio
   when: ansible_pkg_mgr == "pacman"
 
-- name: install aur packages
+- name: install thinkfan packages
   include_role:
     name: aur
   vars:
     pkg_name: thinkfan
+  when: ansible_distribution == "Archlinux"
+
+# hack around "bug" with ansible on rbpi
+- block:
+    - name: install thinkfan packages
+      include_role:
+        name: aur
+      vars:
+        pkg_name: thinkfan
   when: ansible_distribution == "Archlinux"
 
 - name: run lm_sensors
