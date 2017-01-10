@@ -10,6 +10,9 @@
     - acpid
     - lm_sensors
     - pulseaudio
+    - libdvdread
+    - libdvdcss
+    - libdvdnav
   when: ansible_pkg_mgr == "pacman"
 
 - name: install thinkfan packages
