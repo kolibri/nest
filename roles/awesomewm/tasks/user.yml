@@ -1,34 +1,44 @@
 ---
-- name: place config files
+- name: place awesome config files
   copy:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items: 
-    - { src: "xinitrc",   dest: "{{ ko_user_home }}/.xinitrc" }
-    - { src: "Xdefaults", dest: "{{ ko_user_home }}/.Xdefaults" }
-    - { src: "startx.zsh", dest: "{{ ko_zsh_custom_dir }}/zz_startx.zsh" }
+    - { src: "xinitrc",   dest: "{{ awesome_user_home }}/.xinitrc" }
+    - { src: "Xdefaults", dest: "{{ awesome_user_home }}/.Xdefaults" }
+    - { src: "startx.zsh", dest: "{{ awesome_zsh_custom_dir }}/zz_startx.zsh" }
 
-#- name: remove old awesome config dir
-#  file:
-#    path: "{{ ko_user_home }}/.config/awesome"
-#    state: absent
+- name: check if theme is a git repo
+  stat:
+    path: "{{ awesome_user_home }}/.config/awesome/.git"
+  register: awesome_is_theme_repo
+
+- debug: var=awesome_is_theme_repo
+
+- name: remove old awesome config dir
+  file:
+    path: "{{ awesome_user_home }}/.config/awesome"
+    state: absent
+  when: awesome_is_theme_repo.stat.exists == false
 
 - name: ensure awesome config dir
   file:
-    path: "{{ ko_user_home }}/.config/awesome"
+    path: "{{ awesome_user_home }}/.config/awesome"
     state: directory
 
-- name: set awesome default config
-  copy:
-    src: /etc/xdg/awesome/rc.lua
-    dest: "{{ ko_user_home }}/.config/awesome/rc.lua"
-    remote_src: true
-  when: awesome_ko_theme|default(false) == false
-
-- name: ensure awesome ko theme
+- name: ensure awesome theme repository
   git:
-    repo: https://github.com/kolibri/ko-awesome-theme.git
-    dest: "{{ ko_user_home }}/.config/awesome"
+    repo: "{{ awesome_theme_repo }}"
+    dest: "{{ awesome_user_home }}/.config/awesome"
     update: yes
     accept_hostkey: yes
-  when: awesome_ko_theme|default(false)
+  when: awesome_theme_repo|default(false)
+
+- debug: var=awesome_theme_repo
+
+- name: set awesome default config when no theme was set
+  copy:
+    src: /etc/xdg/awesome/rc.lua
+    dest: "{{ awesome_user_home }}/.config/awesome/rc.lua"
+    remote_src: true
+  when: awesome_theme_repo is none
