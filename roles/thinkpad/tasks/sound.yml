@@ -1,0 +1,33 @@
+---
+- name: install thinkpad sound packages
+  become: true
+  pacman: 
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - pulseaudio
+  when: ansible_pkg_mgr == "pacman"
+
+- name: place volume button configs
+  become: true
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root 
+    group: root 
+    mode: 0644
+  with_items:
+    - { src: acpi.events.vol-d, dest: /etc/acpi/events/vol-d }
+    - { src: acpi.events.vol-u, dest: /etc/acpi/events/vol-u }
+    - { src: acpi.events.vol-m, dest: /etc/acpi/events/vol-m }
+  notify:
+    - restart acpid    
+
+
+
+- name: setup sound modprobe config
+  become: true
+  modprobe: 
+    name: snd-hda-intel 
+    params: "model=thinkpad" 
+    state: present

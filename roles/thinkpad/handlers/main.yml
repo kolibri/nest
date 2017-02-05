@@ -10,3 +10,9 @@
   service: 
     name: thinkfan 
     state: restarted
+
+- name: restart bumblebee
+  become: true
+  service: 
+    name: bumblebeed
+    state: restarted

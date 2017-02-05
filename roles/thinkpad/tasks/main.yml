@@ -1,86 +1,24 @@
 ---
+- include: thinkfan.yml
+  tags: [thinkfan]
+
+- include: sound.yml
+  tags: [sound]
+
+- include: graphics.yml
+  tags: [graphics]
+
 - name: install thinkpad related packages
   become: true
   pacman: 
     name: "{{ item }}"
     state: latest
   with_items:
-    - xf86-video-intel
     - xf86-input-libinput
-    - acpid
-    - lm_sensors
-    - pulseaudio
     - libdvdread
     - libdvdcss
     - libdvdnav
   when: ansible_pkg_mgr == "pacman"
-
-- name: install thinkfan packages
-  include_role:
-    name: aur
-  vars:
-    pkg_name: thinkfan
-  when: ansible_distribution == "Archlinux"
-
-# hack around "bug" with ansible on rbpi
-- block:
-    - name: install thinkfan packages
-      include_role:
-        name: aur
-      vars:
-        pkg_name: thinkfan
-  when: ansible_distribution == "Archlinux"
-
-- name: run lm_sensors
-  become: true
-  command: sensors-detect --auto
-  args:
-    creates: /etc/conf.d/lm_sensors
-
-- name: find sensor files
-  find:
-    paths: /sys/devices
-    patterns: temp*_input
-    file_type: file
-    recurse: true
-  register: thinkpad_temp_sensors
-
-- name: place thinkpad fan config
-  become: true
-  template:
-    src: thinkfan.fan.conf.j2
-    dest: /etc/thinkfan.conf
-    owner: root 
-    group: root 
-    mode: 0644
-  notify:
-    - restart thinkfan
-
-- name: setup thinkfan modprobe config
-  become: true
-  copy: 
-    src: thinkfan.modprobe.conf 
-    dest: /etc/modprobe.d/thinkfan.conf
-    owner: root 
-    group: root 
-    mode: 0644
-  notify:
-    - restart thinkfan
-
-- name: place volume button configs
-  become: true
-  copy:
-    src: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    owner: root 
-    group: root 
-    mode: 0644
-  with_items:
-    - { src: acpi.events.vol-d, dest: /etc/acpi/events/vol-d }
-    - { src: acpi.events.vol-u, dest: /etc/acpi/events/vol-u }
-    - { src: acpi.events.vol-m, dest: /etc/acpi/events/vol-m }
-  notify:
-    - restart acpid    
 
 - name: place touchpad toggle scripts
   become: true
@@ -94,34 +32,3 @@
     - { src: touchpad_toggle.sh, dest: /usr/local/bin/touchpad_toggle.sh }
     - { src: touchpad_status.sh, dest: /usr/local/bin/touchpad_status.sh }
 
-- name: setup thinkfan modprobe config
-  become: true
-  modprobe: 
-    name: thinkpad_acpi
-    params: "fan_control=1"
-    state: present
-  notify:
-    - restart thinkfan
-
-- name: setup sound modprobe config
-  become: true
-  modprobe: 
-    name: snd-hda-intel 
-    params: "model=thinkpad" 
-    state: present
-
-- name: ensure acpid is running
-  become: true
-  service: 
-    name: acpid 
-    enabled: true
-  notify:
-    - restart acpid
-
-- name: ensure thinkfan is running
-  become: true
-  service: 
-    name: thinkfan 
-    enabled: true
-  notify:
-    - restart thinkfan
