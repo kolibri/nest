@@ -1,13 +1,22 @@
 ---
-- hosts: cid.*
+- hosts: cid
+  roles:
+    - ko
+    - awesomewm
+
+# Thinkpad T420s
+- hosts: cid.ko
   vars:
     ko_packages:
       - firefox
       - chromium
       - vlc
+      - unrar
+      - obs-studio
+
   roles:
-    - ko
-    - awesomewm
+    - sublimetext
+    - systemdboot
+    - psxemu
     - thinkpad
     - wifi
-    - sublimetext

@@ -9,6 +9,13 @@
         update_cache: yes
         upgrade: yes
       when: ansible_pkg_mgr == "pacman"
+      register: ko_update_pacman_result
+      ignore_errors: True
+
+    - name: repair pacman
+      become: true
+      include: repair_pacman.yml
+      when: ko_update_pacman_result|failed
 
     - name: install init packages with pacman
       pacman:
