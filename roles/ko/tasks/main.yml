@@ -3,9 +3,16 @@
   include_vars: "{{ ansible_os_family }}.yml"
   tags: [always]
 
-- name: include init scripts
-  include: init.yml
-  tags: [init]
+- name: include init system scripts
+  become: true
+  include: init_system.yml
+  tags: [init, system]
+
+- name: include init user scripts
+  become: true
+  include: init_user.yml
+  tags: [init, user]
+  when: ko_user_configure
 
 - name: include locale scripts
   include: locale.yml
@@ -37,19 +44,10 @@
   with_items: "{{ ko_aur_packages }}"
   when: ansible_distribution == "Archlinux"
 
-- name: place this host in /etc/hosts
-  become: true
-  lineinfile:
-    dest: /etc/hosts
-    line: "127.0.0.1 {{ inventory_hostname }}"
-
-- name: place other hosts in /etc/hosts
-  become: true
-  lineinfile:
-    dest: /etc/hosts
-    line: "{{ item.ip }} {{ item.host }}"
-  with_items: "{{ ko_hosts }}"
-  when: item.host != inventory_hostname
+- name: include project scripts
+  include: project.yml
+  when: ko_project_path|default(false)
+  tags: [project]
 
 - name: ensure virtual box guest additions
   become: true

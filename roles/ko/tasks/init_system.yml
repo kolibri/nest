@@ -1,0 +1,63 @@
+---
+- name: update apt
+  apt: update_cache=yes
+  when: ansible_pkg_mgr == "apt"
+
+- name: update pacman
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  when: ansible_pkg_mgr == "pacman"
+  register: ko_update_pacman_result
+  ignore_errors: True
+
+- name: repair pacman
+  become: true
+  include: repair_pacman.yml
+  when: ko_update_pacman_result|failed
+
+- name: install init packages with pacman
+  pacman:
+    name: "{{ item }} "
+    state: present
+  when: ansible_pkg_mgr == "pacman"
+  with_items:
+    - base-devel
+    - dialog
+    - sudo
+    - python2
+    - wget
+    - dosfstools # @todo: perhaps move this out
+
+- name: disable root login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: PermitRootLogin no
+    regexp: "^PermitRootLogin.*$"
+  notify:
+    - restart ssh
+
+- name: ensure ssh is running (and enabled)
+  service:
+    name: "{{ ssh_service_name }}"
+    enabled: yes
+  notify:
+    - restart ssh
+
+- name: set hostname
+  hostname:
+    name: "{{ ko_hostname }}"
+
+- name: place this host in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ inventory_hostname }}"
+
+- name: place other hosts in /etc/hosts
+  become: true
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item.ip }} {{ item.host }}"
+  with_items: "{{ ko_hosts }}"
+  when: item.host != inventory_hostname

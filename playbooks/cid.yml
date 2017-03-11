@@ -3,6 +3,7 @@
   roles:
     - ko
     - awesomewm
+    - cmus
 
 # Thinkpad T420s
 - hosts: cid.ko

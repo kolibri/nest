@@ -1,0 +1,13 @@
+---
+- name: ensure ko project dir
+  file:
+    path: "{{ ko_project_path }}"
+    state: directory
+
+- name: ensure project repository
+  git:
+    repo: "{{ item.values.repo }}"
+    dest: "{{ ko_project_path }}/{{ item.key }}"
+    update: false
+    accept_hostkey: yes
+  with_dict: "{{ ko_projects }}"

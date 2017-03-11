@@ -1,29 +1,31 @@
-ko_debug: true
-ko_user_configure: true
-ko_user_name:  ko
-ko_user_group: ko
-ko_user_pass:  ~
-ko_user_home:  /home/ko
-ko_authorized_key_file: /Users/ko/.ssh/id_rsa.pub
-ko_git_configure: true
-ko_git_mail: entengelb@gmail.com
-ko_github_access_token: ~
-ko_zsh_configure: true
-ko_zsh_theme: ko
-ko_zsh_plugins: git
-ko_zsh_custom_dir: "{{ ko_user_home }}/.ko/zsh"
-ko_packages: []
-ko_aur_packages: []
-ko_hostname: "{{ inventory_hostname }}"
-ko_locale_configure: true
-ko_locale_generate: 
+ko_debug:                true
+ko_user_configure:       true
+ko_user_name:            ko
+ko_user_group:           ko
+ko_user_pass:            ~
+ko_user_home:            "/home/{{ ko_user_name }}"
+ko_project_path:         "{{ ko_user_home }}/libri/projects"
+ko_authorized_key_file:  /Users/ko/.ssh/id_rsa.pub
+ko_git_configure:        true
+ko_git_mail:             entengelb@gmail.com
+ko_github_access_token:  ~
+ko_zsh_configure:        true
+ko_zsh_theme:            ko
+ko_zsh_plugins:          git
+ko_zsh_custom_dir:       "{{ ko_user_home }}/.ko/zsh"
+ko_packages:             []
+ko_aur_packages:         []
+ko_hosts:                []
+ko_projects:             {}
+ko_hostname:             "{{ inventory_hostname }}"
+ko_locale_keymap:        de-latin1-nodeadkeys
+ko_locale_timezone:      Europe/Berlin
+ko_locale_date:          en_DK.UTF-8
+ko_locale_numeric:       en_DK.UTF-8
+ko_locale_time:          en_DK.UTF-8
+ko_locale_lang:          en_US.UTF-8
+ko_locale_configure:     true
+ko_locale_generate:
   - de_DE.UTF-8
   - en_DK.UTF-8
   - en_US.UTF-8
-ko_locale_keymap: de-latin1-nodeadkeys
-ko_locale_timezone: Europe/Berlin
-ko_locale_date: en_DK.UTF-8
-ko_locale_numeric: en_DK.UTF-8
-ko_locale_time: en_DK.UTF-8
-ko_locale_lang: en_US.UTF-8
-ko_hosts: []
