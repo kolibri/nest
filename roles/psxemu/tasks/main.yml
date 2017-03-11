@@ -1,0 +1,43 @@
+---
+- name: install epsxe packages
+  include_role:
+    name: aur
+  vars:
+    pkg_name: "{{ item }}"
+  with_items:
+    - libtinfo
+    - epsxe
+#    - epsxe-plugin-spu-alsa
+#  when: ansible_distribution == "Archlinux"
+
+- name: ensure games group
+  group:
+    name: games
+    state: present
+
+- name: add games group to user
+  become: true
+  user:
+    name: "{{ psxemu_user_name }}"
+    groups: games
+    append: yes
+
+- name: copy psx bios
+  copy:
+    src: "{{ psxemu_bios_lookup_path }}"
+    dest: "{{ psxemu_bios_path }}"
+
+- name: config epxse
+  lineinfile:
+    dest: "{{ psxemu_config_dir }}/epsxerc"
+    regexp: "^{{ item.var }} ="
+    line: "{{ item.var }} = {{ item.value }}"
+  with_items: 
+    - { var: BiosPath, value: "{{ psxemu_bios_path }}" }
+    - { var: IsoDirectory, value: "{{ psxemu_games_path }}" }
+
+- name: enable kernel module for sound plugin
+  become: true
+  modprobe: 
+    name: snd-pcm-oss
+    state: absent

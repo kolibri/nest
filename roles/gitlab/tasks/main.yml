@@ -1,0 +1,26 @@
+---
+- name: Include OS-Specific gitlab variables
+  include_vars: "{{ ansible_os_family }}.yml"
+  tags: [always]
+
+- name: install gitlab from repository
+  become: true
+  apt:
+    deb: "{{ gitlab_apt_repo }}"
+
+- name: execute init script
+  become: true
+  shell: gitlab-ctl reconfigure
+
+- name: ensure gitlab user
+  gitlab_user:
+    server_url: https://localhost
+    validate_certs: false
+    login_token: icLh8K2FW655QVMsFCJc
+    name: ko.libri
+    username: ko
+    password: password
+    email: entengelb@gmail.com
+#    sshkey_name: MySSH
+#    sshkey_file: ssh-rsa AAAAB3NzaC1yc...
+    state: present

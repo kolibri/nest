@@ -1,0 +1,43 @@
+---
+
+- name: get partuuid of device
+  shell: blkid -s PARTUUID -o value {{ systemdboot_boot_device }}
+  register: systemdboot_partuuid_rslt
+
+- set_fact:
+    systemdboot_partuuid: "{{ systemdboot_partuuid_rslt.stdout }}"
+
+- name: install thinkpad related packages
+  become: true
+  pacman: 
+    name: "{{ item }}"
+    state: latest
+  with_items: "{{ systemdboot_bootloader_packages }}"
+  when: ansible_pkg_mgr == "pacman"
+
+- name: place loader configuration
+  become: true
+  template:
+    src: loader.conf.j2
+    dest: /boot/loader/loader.conf
+#  notify: reboot on bootloader changes
+
+- name: place entry configuration
+  become: true
+  template:
+    src: entry.conf.j2
+    dest: "/boot/loader/entries/{{ systemdboot_entry_title }}.conf"
+#  notify: reboot on bootloader changes
+
+#- name: reboot on bootloader changes
+#  become: true
+#  shell: sleep 2 && shutdown -r now "Ansible reboot"
+#  async: 60
+#  poll: 0
+#  ignore_errors: true
+
+#- name: flush handlers
+#  meta: flush_handlers
+#
+#- name: wait for host to be rebooted
+#  local_action: wait_for host="{{ inventory_hostname }}" port=22 state=started delay=30 timeout=600

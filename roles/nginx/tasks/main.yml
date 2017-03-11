@@ -1,0 +1,22 @@
+---
+- name: install nginx
+  become: true
+  package:
+    name: nginx
+    state: latest
+
+- name: place default index page
+  become: true
+  copy:
+      src: index.html
+      dest: /var/www/html/index.html
+      owner: root
+      group: root
+      mode: 0644
+
+- name: enable nginx
+  service:
+    name: nginx
+    enabled: true
+  notify:
+    - restart nginx

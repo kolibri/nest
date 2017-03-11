@@ -1,0 +1,7 @@
+---
+#- name: reboot on bootloader changes
+#  become: true
+#  shell: sleep 2 && shutdown -r now "Ansible reboot"
+#  async: 60
+#  poll: 0
+#  ignore_errors: true

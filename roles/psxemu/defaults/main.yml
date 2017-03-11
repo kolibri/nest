@@ -1,0 +1,7 @@
+---
+psxemu_user_name: "{{ ko_user_name }}"
+psxemu_user_home: "{{ ko_user_home }}"
+psxemu_config_dir: "{{ psxemu_user_home }}/.epsxe"
+psxemu_bios_path: "{{ psxemu_config_dir }}/bios/SCPH5501.bin"
+psxemu_games_path: "{{ psxemu_user_home }}/games"
+psxemu_bios_lookup_path: 
