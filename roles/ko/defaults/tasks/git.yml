@@ -1,12 +1,12 @@
 ---
-- name: install git
-  become: true
-  package:
-    name: "{{ item }}"
-    state: latest
-  with_items: 
-    - git
-    - tig
+# - name: install git
+#   become: true
+#   package:
+#     name: "{{ item }}"
+#     state: latest
+#   with_items: 
+#     - git
+#     - tig
 
 - name: ensure git config
   become: true

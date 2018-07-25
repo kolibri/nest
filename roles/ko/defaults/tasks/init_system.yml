@@ -27,7 +27,6 @@
     - sudo
     - python2
     - wget
-    - dosfstools # @todo: perhaps move this out
 
 - name: disable root login
   lineinfile:

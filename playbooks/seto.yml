@@ -1,6 +1,6 @@
 ---
 - hosts: seto
   roles:
-    - ko
-    - nginx
-    - gitlab
+    - ko/defaults
+    #- packages/nginx
+    #- packages/gitlab
