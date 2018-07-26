@@ -4,7 +4,6 @@
     - debug: var=hostvars
       when: debug|default(false)
 
-- include: playbooks/vagrant.yml
 - include: playbooks/cid.yml
 - include: playbooks/cloud.yml
 - include: playbooks/seto.yml

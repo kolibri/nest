@@ -1,6 +1,7 @@
 ---
 - hosts: seto
   roles:
-    - ko/defaults
+    - ko/settings
     #- packages/nginx
-    #- packages/gitlab
+    - role: geerlingguy.gitlab
+      become: true

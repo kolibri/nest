@@ -1,3 +1,4 @@
+---
 ko_debug:                false
 ko_user_configure:       false
 ko_user_name:            ko
@@ -6,10 +7,8 @@ ko_user_pass:            ~
 ko_user_home:            "/home/{{ ko_user_name }}"
 ko_project_path:         "{{ ko_user_home }}/libri/projects"
 ko_authorized_key_file:  /Users/ko/.ssh/id_rsa.pub
-ko_git_configure:        false
 ko_git_mail:             entengelb@gmail.com
 ko_github_access_token:  ~
-ko_zsh_configure:        false
 ko_zsh_theme:            ko
 ko_zsh_plugins:          git
 ko_zsh_custom_dir:       "{{ ko_user_home }}/.ko/zsh"

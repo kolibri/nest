@@ -14,9 +14,9 @@ boxes = [{
     :host => "seto.dev",
     :ip   => "192.168.31.103",
     :gui  => false,
-    :box  => "geerlingguy/ubuntu1804",
+    :box  => "debian/jessie64",
     :sync_host => ".",
-    :sync_guest => "/home/vagrant/nest"
+    :sync_guest => "/opt/nest"
 },{
     :name => :cloud_dev,
     :host => "cloud.dev",
@@ -40,8 +40,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             config.vm.synced_folder opts[:sync_host], opts[:sync_guest], id: "vagrant-share", :nfs => true
             #config.vm.synced_folder "/Users/ko/Desktop/media", "/home/vagrant/libri/media", id: "media-share", :nfs => true
 
-            # config.ssh.username = "vagrant"
-            # config.ssh.password = "vagrant"
+            config.ssh.username = "vagrant"
+            config.ssh.password = "vagrant"
 
             config.vm.provider :virtualbox do |virtualbox|
                 virtualbox.gui = opts[:gui]

@@ -1,4 +1,4 @@
 ---
 - hosts: real
   roles:
-    - ko
+    - ko/settings

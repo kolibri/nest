@@ -14,7 +14,7 @@
 - name: repair pacman
   become: true
   include: repair_pacman.yml
-  when: ko_update_pacman_result|failed
+  when: ko_update_pacman_result is failed
 
 - name: install init packages with pacman
   pacman:

@@ -1,9 +1,9 @@
 ---
 - hosts: cid
   roles:
-    - ko
-    - awesomewm
-    - cmus
+    - ko/settings
+    - packages/awesomewm
+    - packages/cmus
 
 # Thinkpad T420s
 - hosts: cid.ko
@@ -16,8 +16,8 @@
       - obs-studio
 
   roles:
-    - sublimetext
-    - systemdboot
-    - psxemu
-    - thinkpad
-    - wifi
+    - packages/sublimetext
+    - packages/systemdboot
+    - packages/psxemu
+    - hardware/thinkpad
+    - packages/wifi

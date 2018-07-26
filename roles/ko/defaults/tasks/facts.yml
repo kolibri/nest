@@ -1,8 +1,0 @@
----
-- name: Check if git is installed
-  command: type git
-  register: ko_check_git
-
-- name: set git install state fact
-  set_fact:
-    ko_git_configure: false
