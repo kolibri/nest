@@ -35,6 +35,9 @@
     regexp: "^PermitRootLogin.*$"
   notify:
     - restart ssh
+  when: ko_user_configure|default(false) # prevents lockout, when only root user
+                                         # exists and ko user is not configured.
+                                         # @todo find a better solution
 
 - name: ensure ssh is running (and enabled)
   service:

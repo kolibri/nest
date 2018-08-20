@@ -16,3 +16,9 @@
 - name: set zsh install state fact
   set_fact:
     ko_zsh_configure: ko_check_zsh.result
+
+
+
+# git clone git://github.com/doceme/py-spidev
+# cd py-spidev/
+# sudo python setup.py install

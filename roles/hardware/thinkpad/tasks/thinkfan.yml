@@ -20,7 +20,7 @@
 - block:
     - name: install thinkfan packages
       include_role:
-        name: aur
+        name: packages/aur
       vars:
         pkg_name: thinkfan
   when: ansible_distribution == "Archlinux"
