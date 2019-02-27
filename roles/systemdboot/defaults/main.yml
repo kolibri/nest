@@ -1,9 +1,0 @@
----
-systemdboot_loader_default: arch
-systemdboot_loader_timeout: 2
-systemdboot_entry_title: arch
-systemdboot_initrds: 
-  - /initramfs-linux.img
-#systemdboot_partuuid: ~
-systemdboot_bootloader_packages: ~
-systemdboot_boot_device: /dev/sda2

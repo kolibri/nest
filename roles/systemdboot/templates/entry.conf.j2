@@ -1,6 +1,0 @@
-title          {{ systemdboot_entry_title }}
-linux          /vmlinuz-linux
-{% for initrd in systemdboot_initrds %}
-initrd         {{ initrd }}
-{% endfor %}
-options        root=PARTUUID={{ systemdboot_partuuid }} rw

@@ -1,9 +1,0 @@
----
-
-- name: Assert projectname
-  assert:
-    that:
-      - project_name is defined
-      - project.repo is defined
-
-

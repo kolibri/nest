@@ -1,0 +1,6 @@
+# group host first in roles
+[aerith]
+aerith.ko ansible_host=192.168.178.28
+
+[real]
+aerith.ko

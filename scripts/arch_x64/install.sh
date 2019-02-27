@@ -3,7 +3,6 @@ set -xe
 
 DISK=/dev/sda
 
-
 timedatectl set-ntp true
 timedatectl set-local-rtc 0
 
@@ -33,7 +32,7 @@ mkfs.fat -F32 ${DISK}1
 
 echo '==> bootstrapping the base installation'
 #pacstrap /mnt base base-devel wpa_supplicant
-/usr/bin/pacstrap /mnt base base-devel wpa_supplicant dialog python2 openssh
+/usr/bin/pacstrap /mnt base base-devel wpa_supplicant dialog python openssh
 
 echo '==> generating the filesystem table'
 /usr/bin/genfstab -U /mnt >> "/mnt/etc/fstab"
@@ -41,8 +40,9 @@ echo '==> generating the filesystem table'
 arch-chroot /mnt hwclock --systohc
 arch-chroot /mnt echo "de_DE.UTF-8 UTF-8" >> /etc/locale.gen    # Für Deutschland
 arch-chroot /mnt locale-gen
+arch-chroot /mnt unlink /etc/localtime
 arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
-    arch-chroot /mnt mkinitcpio -p linux
+arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt /usr/bin/usermod --password `/usr/bin/openssl passwd -crypt 'root'` root
 arch-chroot /mnt /usr/bin/bootctl --path=/boot install
 arch-chroot /mnt /bin/bash -c "cat >/boot/loader/loader.conf <<EOL
@@ -57,10 +57,4 @@ initrd         /initramfs-linux.img
 options        root=PARTUUID=`blkid -s PARTUUID -o value ${DISK}2` rw
 EOL"
 
-read -p "Unount /mnt and reboot? " -n 1 -r
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    umount -R /mnt
-    reboot
-fi
-set +xe
+umount -R /mnt

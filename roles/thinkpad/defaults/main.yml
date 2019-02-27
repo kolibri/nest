@@ -1,2 +1,0 @@
----
-thinkpad_bumblebee_user: "{{ ko_user_name }}"

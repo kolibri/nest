@@ -1,0 +1,5 @@
+---
+ko_user_home:
+ko_user_name:
+ko_zsh_custom_dir: "{{ ko_user_home }}/.ko/zsh"
+ko_zsh_plugins: ~

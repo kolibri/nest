@@ -1,0 +1,46 @@
+---
+- include_tasks: system.yml
+
+- name: place awesome config files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items:
+    - { src: "xinitrc",   dest: "{{ awesome_user_home }}/.xinitrc" }
+    - { src: "Xdefaults", dest: "{{ awesome_user_home }}/.Xdefaults" }
+    - { src: "startx.zsh", dest: "{{ awesome_zsh_custom_dir }}/zz_startx.zsh" }
+
+- name: check if theme is a git repo
+  stat:
+    path: "{{ awesome_user_home }}/.config/awesome/.git"
+  register: awesome_is_theme_repo
+
+- debug: var=awesome_is_theme_repo
+
+- name: remove old awesome config dir
+  file:
+    path: "{{ awesome_user_home }}/.config/awesome"
+    state: absent
+  when: awesome_is_theme_repo.stat.exists == false
+
+- name: ensure awesome config dir
+  file:
+    path: "{{ awesome_user_home }}/.config/awesome"
+    state: directory
+
+- name: ensure awesome theme repository
+  git:
+    repo: "{{ awesome_theme_repo }}"
+    dest: "{{ awesome_user_home }}/.config/awesome"
+    update: yes
+    accept_hostkey: yes
+  when: awesome_theme_repo|default(false)
+
+- debug: var=awesome_theme_repo
+
+- name: set awesome default config when no theme was set
+  copy:
+    src: /etc/xdg/awesome/rc.lua
+    dest: "{{ awesome_user_home }}/.config/awesome/rc.lua"
+    remote_src: true
+  when: awesome_theme_repo is none

@@ -1,0 +1,82 @@
+---
+# - name: update pacman
+#   pacman:
+#     update_cache: yes
+#     upgrade: yes
+#   register: ko_pacman_update_result
+#   ignore_errors: True
+
+# - name: repair broken pacman
+#   include: repair_pacman.yml
+#   when: ko_pacman_update_result is failed
+
+- name: ensure base packages
+  package:
+    state: latest
+    name:
+      - base-devel
+      - dialog
+      - sudo
+      - python2
+      - wget
+      - dosfstools # @todo: perhaps move this out
+
+- name: ensure root login is disabled
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    line: PermitRootLogin no
+    regexp: "^PermitRootLogin.*$"
+  notify:
+    - restart ssh
+
+- name: ensure ssh service is enabled
+  service:
+    name: sshd
+    enabled: yes
+  notify:
+    - restart ssh
+
+#- name: set hostname
+#  hostname:
+#    name: "{{ ko_hostname }}"
+
+- name: place this host in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    line: "127.0.0.1 {{ inventory_hostname }}"
+
+- name: place other hosts in /etc/hosts
+  lineinfile:
+    dest: /etc/hosts
+    line: "{{ item.ip }} {{ item.host }}"
+  with_items: "{{ ko_hosts }}"
+  when: item.host != inventory_hostname
+
+# setup user
+- name: ensure ko group
+  group:
+    name: "{{ ko_user_group }}"
+    state: present
+
+- name: ensure ko user
+  user:
+    name: "{{ ko_user_name }}"
+    groups: "{{ ko_user_group }}"
+    append: yes
+    generate_ssh_key: yes
+    password: "{{ ko_user_pass }}"
+  register: ko_user_info
+
+- name: ensure root privileges for ko user
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^{{ ko_user_name }} ALL"
+    line: "{{ ko_user_name }} ALL=(ALL) NOPASSWD:ALL"
+    validate: "visudo -cf %s"
+
+- name: add authorized key of controll machine
+  authorized_key:
+    user: "{{ ko_user_name }}"
+    key: "{{ lookup('file', ko_authorized_key_file) }}"
+  when: ansible_connection != "local"

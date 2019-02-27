@@ -1,4 +1,8 @@
 *.iso
-inventory/*
+inventory/host_vars/*
+inventory/group_vars/real.yml
+ansible.cfg
+inventory/real/*
 bucket/*
 logs/*
+legacy/*

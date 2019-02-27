@@ -1,7 +1,0 @@
----
-- hosts: cloud
-  roles:
-    - ko
-    - ansible
-    - nest
-    - mailer

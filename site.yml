@@ -1,11 +1,3 @@
 ---
 - hosts: all
-  tasks:
-    - debug: var=hostvars
-      when: debug|default(false)
-
-- include: playbooks/vagrant.yml
-- include: playbooks/cid.yml
-- include: playbooks/cloud.yml
-- include: playbooks/seto.yml
-- include: playbooks/real.yml
+- import_playbook: playbooks/aerith.yml

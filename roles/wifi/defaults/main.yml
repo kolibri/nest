@@ -1,8 +1,0 @@
----
-wifi_essid: ~
-wifi_key: ~
-wifi_interface: wlp3s0
-wifi_connection: wireless
-wifi_ip: dhcp
-wifi_security: wpa
-wifi_profile: "{{ wifi_interface }}-{{ wifi_essid }}"

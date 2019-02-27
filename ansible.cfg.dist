@@ -2,7 +2,7 @@
 display_skipped_hosts = False
 retry_files_enabled = False
 roles_path = ./roles:./galaxy-roles
-inventory = inventory/real
+inventory = inventory/hosts
 # gathering = smart
 # fact_caching = jsonfile
 # fact_caching_connection = ./.facts

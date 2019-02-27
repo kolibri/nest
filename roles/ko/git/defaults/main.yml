@@ -1,0 +1,5 @@
+---
+ko_git_mail: ~
+ko_git_user: "{{ ko_user_name }}"
+ko_github_access_token: ~
+

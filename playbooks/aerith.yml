@@ -1,0 +1,16 @@
+---
+- hosts: aerith
+  roles:
+#    - { role: ko/base, become: true, tags: [init] }
+#    - { role: ko/locale, become: true }
+    # - ko/git
+    # - ko/zsh
+    - ko/awesomewm
+
+  tasks:
+    - name: ensure base packages
+      become: true
+      package:
+        state: latest
+        name:
+          - chromium

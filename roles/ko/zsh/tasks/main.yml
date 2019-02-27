@@ -1,0 +1,36 @@
+---
+- name: ensure zsh is installed
+  become: true
+  package: name=zsh
+
+- name: ensure user uses zsh shell
+  become: true
+  user:
+    name: "{{ ko_user_name }}"
+    shell: /bin/zsh
+
+- name: checkout oh my zsh
+  git:
+    repo: git://github.com/robbyrussell/oh-my-zsh.git
+    dest: "{{ ko_user_home }}/.oh-my-zsh"
+    accept_hostkey: yes
+
+- name: set .zshrc
+  template:
+    src: zshrc.j2
+    dest: "{{ ko_user_home }}/.zshrc"
+
+- name: ensure oh my zsh custom dir
+  file:
+    path: "{{ ko_zsh_custom_dir }}"
+    state: directory
+
+- name: copy ko zsh theme
+  copy:
+    src: ko.zsh-theme
+    dest: "{{ ko_zsh_custom_dir }}/ko.zsh-theme"
+
+- name: copy ko zsh functions
+  copy:
+    src: shrink_shell.zsh
+    dest: "{{ ko_zsh_custom_dir }}/shrink_shell.zsh"

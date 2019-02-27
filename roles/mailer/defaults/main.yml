@@ -1,9 +1,0 @@
----
-mailer_user:             "{{ ko_user_name }}"
-mailer_home:             "{{ ko_user_home }}"
-mailer_account:          gmail
-mailer_account_host:     smtp.gmail.com
-mailer_account_port:     587
-mailer_account_from:     ~
-mailer_account_user:     ~
-mailer_account_password: ~

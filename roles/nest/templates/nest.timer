@@ -1,9 +1,0 @@
-[Unit]
-Description=Run nest provision
-
-[Timer]
-OnBootSec={{ nest_autorun_boot_delay }}
-OnUnitActiveSec={{ nest_autorun_period }}
-
-[Install]
-WantedBy=timers.target

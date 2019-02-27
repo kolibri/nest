@@ -1,6 +1,0 @@
----
-- hosts: seto
-  roles:
-    - ko
-    - nginx
-    - gitlab

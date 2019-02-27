@@ -1,0 +1,16 @@
+---
+- name: ensure archlinux-keyring is up to date
+  pacman:
+    name: archlinux-keyring
+    state: latest
+    update_cache: yes
+
+- name: remove pacman cache
+  shell: pacman -Scc
+  when: ansible_pkg_mgr == "pacman"
+
+- name: upgrade pacman (again)
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  when: ansible_pkg_mgr == "pacman"
