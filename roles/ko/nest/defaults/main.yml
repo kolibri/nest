@@ -1,7 +1,10 @@
 ---
-#nest_user_name: "{{ ko_user_name }}"
-#nest_user_home: "{{ ko_user_home }}"
-nest_path: "/opt/nest"
+nest_name: "{{ ko_user_name|default('ko') }}"
+nest_group: "{{ ko_user_group|default('ko') }}"
+nest_home: "{{ ko_user_home|default('/home/ko') }}"
+nest_path: "{{ nest_home }}/.ko/nest"
+nest_repo: git@github.com:kolibri/nest.git
+nest_branch: reboot
 # nest_ssh_key_path: "{{ nest_user_home }}/.ssh/id_rsa.pub"
 # nest_hosts: []
 # nest_groups: []
@@ -15,6 +18,6 @@ nest_inventory_repo: git@github.com:kolibri/nest-inventory.git
 nest_autorun: true
 nest_autorun_boot_delay: 5min
 nest_autorun_period: 1d
-# nest_autorun_cmd: "{{ nest_path }}/nest.sh"
+nest_autorun_cmd: "ansible-playbook -i /inventory"
 # ---
 # # defaults file for nest

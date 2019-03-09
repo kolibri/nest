@@ -1,0 +1,10 @@
+[Unit]
+Description=Run nest provision
+
+[Service]
+WorkingDirectory={{ nest_path }}/
+ExecStart=ansible-playbook -i inventory/real site.yml -l {{ ko_hostname }}
+Type=oneshot
+
+[Install]
+WantedBy=default.target

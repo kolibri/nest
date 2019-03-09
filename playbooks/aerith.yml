@@ -1,12 +1,13 @@
 ---
 - hosts: aerith
   roles:
-    # - { role: ko/base, become: true, tags: [init] }
+    - { role: ko/base, become: true, tags: [init] }
     # - { role: ko/locale, become: true }
-    # - ko/git
+    - ko/git
     # - ko/zsh
     # - ko/awesomewm
-    - ko/sublimetext3
+    # - ko/sublimetext3
+    - ko/nest
 
   tasks:
     # @todo: update pacman after this / move this out

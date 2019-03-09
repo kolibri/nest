@@ -1,2 +1,7 @@
 ---
+- name: nest reload systemd
+  systemd:
+    daemon_reload: yes
+    name: nest
+    state: restarted
 
