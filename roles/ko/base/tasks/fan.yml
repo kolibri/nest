@@ -1,0 +1,30 @@
+---
+- name: ensure fan control packages
+  become: true
+  package:
+    state: latest
+    name:
+      # - acpid
+      - lm_sensors
+
+- name: run lm_sensors
+  become: true
+  command: sensors-detect --auto
+  args:
+    creates: /etc/conf.d/lm_sensors
+
+- name: find sensor files
+  find:
+    paths: /sys/devices
+    patterns: temp*_input
+    file_type: file
+    recurse: true
+  register: temp_sensors
+
+# - name: ensure acpid is running
+#   become: true
+#   service:
+#     name: acpid
+#     enabled: true
+#   notify:
+#     - restart acpid

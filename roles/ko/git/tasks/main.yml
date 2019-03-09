@@ -9,8 +9,6 @@
     - tig
 
 - name: ensure git config
-  become: true
-  become_user: "{{ ko_user_name }}"
   ini_file:
     dest:    "{{ ko_user_home }}/.gitconfig"
     section: "{{ item.ns }}"

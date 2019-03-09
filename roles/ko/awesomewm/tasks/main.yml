@@ -8,6 +8,7 @@
   with_items:
     - { src: "xinitrc",   dest: "{{ awesome_user_home }}/.xinitrc" }
     - { src: "Xdefaults", dest: "{{ awesome_user_home }}/.Xdefaults" }
+    - { src: "Xresources", dest: "{{ awesome_user_home }}/.Xresources" }
     - { src: "startx.zsh", dest: "{{ awesome_zsh_custom_dir }}/zz_startx.zsh" }
 
 - name: check if theme is a git repo

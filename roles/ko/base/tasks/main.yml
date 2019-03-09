@@ -21,6 +21,13 @@
       - wget
       - dosfstools # @todo: perhaps move this out
 
+- name: ensure dhcp service is enabled
+  service:
+    name: dhcpcd
+    enabled: yes
+  notify:
+    - restart dhcp
+
 - name: ensure root login is disabled
   lineinfile:
     dest: /etc/ssh/sshd_config
@@ -80,3 +87,5 @@
     user: "{{ ko_user_name }}"
     key: "{{ lookup('file', ko_authorized_key_file) }}"
   when: ansible_connection != "local"
+
+- include_tasks: fan.yml

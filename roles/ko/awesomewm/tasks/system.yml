@@ -2,52 +2,48 @@
 - name: install awesome packages
   become: true
   package:
-    name: "{{ item }}"
     state: latest
-  when: ansible_pkg_mgr == "pacman"
-  with_items:
-    - xorg-server
-    - xorg-xinit
-    - xf86-video-vesa
-    - alsa-utils
-    - xbindkeys
-    - awesome
-    - vicious
-    - xterm
-    - qt4
-    - iw
-    #- xorg-xdm
-    - qiv
-    - ntp
-    - acpi
-  # fonts
-    - terminus-font
-    - ttf-dejavu
-    - ttf-inconsolata
-    - ttf-bitstream-vera
-    - ttf-linux-libertine
+    name:
+      - xorg-server
+      - xorg-xinput
+      - xorg-xinit
+      - xf86-video-vesa
+      - alsa-utils
+      - xbindkeys
+      - awesome
+      - vicious
+      - xterm
+      - qt4
+      - iw
+      #- xorg-xdm
+      - qiv
+      - ntp
+      - acpi
+    # fonts
+      - terminus-font
+      - ttf-dejavu
+      - ttf-inconsolata
+      - ttf-bitstream-vera
+      - ttf-linux-libertine
+      - ttf-liberation
 
-#- name: install epsxe packages
-#  include_role:
-#    name: ko/aur
-#  vars:
-#    pkg_name: "{{ item }}"
-#  with_items:
-#    - xorg-utils
-#    - xorg-server-utils
+- name: ensure autlogin config dir
+  become: true
+  file:
+    state: directory
+    dest: /etc/systemd/system/getty@tty1.service.d/
 
-- name: ensure x11 configurations
+- name: ensure configuration files
   become: true
   template:
     src: "{{ item.src }}"
-    dest: "/etc/X11/xorg.conf.d/{{ item.dest }}"
+    dest: "{{ item.dest }}"
     owner: root
     group: root
     mode: 0644
   with_items:
-    -
-      src: x11-monitor.conf.j2
-      dest: 20-monitor.conf
-    -
-      src: x11-keyboard.conf.j2
-      dest: 20-keyboard.conf
+    - { src: x11-monitor.conf.j2, dest: /etc/X11/xorg.conf.d/20-monitor.conf }
+    - { src: x11-keyboard.conf.j2, dest: /etc/X11/xorg.conf.d/20-keyboard.conf }
+    - { src: x11-elecom-huge-trackball.conf.j2, dest: /etc/X11/xorg.conf.d/20-trackball.conf }
+    - { src: x11-gtx-1050ti.conf.j2, dest: /etc/X11/xorg.conf.d/20-nvidia.conf }
+    - { src: autologin.conf.j2, dest: /etc/systemd/system/getty@tty1.service.d/override.conf }

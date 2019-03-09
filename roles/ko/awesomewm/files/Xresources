@@ -1,0 +1,6 @@
+Xft.dpi: 128
+
+XTerm*faceName: DejaVu Sans Mono
+Xterm*faceName: Bitstream Vera Sans Mono
+xterm*faceName: Liberation Mono
+xterm*faceSize:  8

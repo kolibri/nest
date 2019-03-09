@@ -1,6 +1,0 @@
----
-ko_user_name: ko
-ko_user_pass:  $1$fancy$lQPwpaysuAXKshIpC05mf0
-ko_user_group: ko
-ko_user_home: /home/ko
-ko_authorized_key_file: /Users/ko/.ssh/id_rsa.pub

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -xe
+set -e
 
 DISK=/dev/sda
 
@@ -44,6 +44,9 @@ arch-chroot /mnt unlink /etc/localtime
 arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt /usr/bin/usermod --password `/usr/bin/openssl passwd -crypt 'root'` root
+arch-chroot /mnt systemctl enable dhcpcd
+arch-chroot /mnt echo "PermitRootLogin yes" >> /etc/ssh/sshd_configs
+arch-chroot /mnt systemctl enable sshd
 arch-chroot /mnt /usr/bin/bootctl --path=/boot install
 arch-chroot /mnt /bin/bash -c "cat >/boot/loader/loader.conf <<EOL
 default  arch
@@ -58,3 +61,5 @@ options        root=PARTUUID=`blkid -s PARTUUID -o value ${DISK}2` rw
 EOL"
 
 umount -R /mnt
+
+set +e

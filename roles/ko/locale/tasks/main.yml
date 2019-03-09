@@ -1,16 +1,23 @@
 ---
-- name: update locales.gen
-  lineinfile:
-    dest: /etc/locale.gen
-    regexp: '#{0,1}\w*({{ item }}.*)'
-    line: '\1'
-    backrefs: true
+# - name: update locales.gen
+#   lineinfile:
+#     dest: /etc/locale.gen
+#     regexp: '#{0,1}\w*({{ item }}.*)'
+#     line: '\1'
+#     backrefs: true
+#     state: present
+#   with_items: "{{ ko_locale_generate }}"
+#   register: locale_gen_file
+
+
+# - name: generate locales
+#   command: locale-gen
+
+- name: Ensure a locale exists
+  locale_gen:
+    name: "{{ item }}"
     state: present
   with_items: "{{ ko_locale_generate }}"
-  register: locale_gen_file
-
-- name: generate locales
-  command: locale-gen
 
 - name: place global locale files
   template:

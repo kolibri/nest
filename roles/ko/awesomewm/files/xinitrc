@@ -12,4 +12,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 #xbindkeys
+[[ -f ~/.Xresources ]] && xrdb -merge -I$HOME ~/.Xresources
 exec awesome
+

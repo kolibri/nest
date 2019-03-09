@@ -35,7 +35,7 @@ xterm*background:     #1A1A1A
 xterm*foreground:     grey
 xterm*geometry:       80x20
 xterm*internalBorder: 5
-xterm*faceName:       terminusbold:pixelsize=13
+xterm*faceName:       terminusbold:pixelsize=18
 xterm*locale:         true
 xterm*utf8:           1
 xterm*selectToClipboard: true
