@@ -1,11 +1,11 @@
 ---
 - hosts: aerith
   roles:
-    - { role: ko/base, become: true, tags: [init] }
-    - { role: ko/locale, become: true }
-    - ko/git
-    - ko/zsh
-    - ko/awesomewm
+    # - { role: ko/base, become: true, tags: [init] }
+    # - { role: ko/locale, become: true }
+    # - ko/git
+    # - ko/zsh
+    # - ko/awesomewm
     - ko/sublimetext3
 
   tasks:
