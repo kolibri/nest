@@ -2,11 +2,11 @@
 - hosts: aerith
   roles:
     - { role: ko/base, become: true, tags: [init] }
-    # - { role: ko/locale, become: true }
+    - { role: ko/locale, become: true }
     - ko/git
-    # - ko/zsh
-    # - ko/awesomewm
-    # - ko/sublimetext3
+    - ko/zsh
+    - ko/awesomewm
+    - ko/sublimetext3
     - ko/nest
 
   tasks:
@@ -28,9 +28,9 @@
           - keepassx2
           - steam
           - wqy-zenhei # from steam
-          # - vagrant
-          # - packer
-          # - virtualbox
+          - vagrant
+          - packer
+          - virtualbox
 
 - hosts: aerith.ko
   tasks:

@@ -44,17 +44,14 @@
 - name: systemd config directory
   file:
     state: directory
-    dest: "{{ nest_home }}.config/systemd/user/"
+    dest: "{{ nest_home }}/.config/systemd/user/"
 
 - name: systemd config
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: 0644
   with_items:
-    - { src: systemd.service.j2, dest: "{{ nest_home }}.config/systemd/user/nest.service" }
-    - { src: systemd.timer.j2, dest: "{{ nest_home }}.config/systemd/user/nest.timer" }
+    - { src: systemd.service.j2, dest: "{{ nest_home }}/.config/systemd/user/nest.service" }
+    - { src: systemd.timer.j2, dest: "{{ nest_home }}/.config/systemd/user/nest.timer" }
   notify:
     - nest reload systemd
