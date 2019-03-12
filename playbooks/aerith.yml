@@ -8,6 +8,7 @@
     - ko/awesomewm
     - ko/sublimetext3
     - ko/nest
+    - ko/daskeyboard # not finished
 
   tasks:
     # @todo: update pacman after this / move this out
@@ -30,9 +31,11 @@
           - wqy-zenhei # from steam
           - vagrant
           - packer
-          - virtualbox
 
 - hosts: aerith.ko
+  roles:
+    - ko/virtualbox
+
   tasks:
     - name: ensure base packages for aerith
       become: true

@@ -40,7 +40,7 @@
   command: makepkg --noconfirm --noprogressbar -mfs
   args:
     chdir: /tmp/{{ pkg_name }}
-  when: extracted_pkg | changed
+  when: extracted_pkg is changed
   register: aur_makepkg_result
 
 - name: AUR | {{ pkg_name }} | install newly-built aur package with pacman
@@ -49,5 +49,5 @@
   args:
     chdir: "/tmp/{{ pkg_name }}"
   register: pacman_install_result
-  when: aur_makepkg_result | changed
+  when: aur_makepkg_result is changed
   changed_when: pacman_install_result.stdout is defined and pacman_install_result.stdout.find('there is nothing to do') == -1

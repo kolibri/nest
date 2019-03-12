@@ -1,14 +1,14 @@
 ---
-# - name: update pacman
-#   pacman:
-#     update_cache: yes
-#     upgrade: yes
-#   register: ko_pacman_update_result
-#   ignore_errors: True
+- name: update pacman
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  register: ko_pacman_update_result
+  ignore_errors: True
 
-# - name: repair broken pacman
-#   include: repair_pacman.yml
-#   when: ko_pacman_update_result is failed
+- name: repair broken pacman
+  include: repair_pacman.yml
+  when: ko_pacman_update_result is failed
 
 - name: ensure base packages
   package:
@@ -19,7 +19,7 @@
       - sudo
       - python2
       - wget
-      - dosfstools # @todo: perhaps move this out
+#      - dosfstools # @todo: perhaps move this out
 
 - name: ensure dhcp service is enabled
   service:

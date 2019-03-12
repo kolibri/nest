@@ -1,5 +1,7 @@
 *.iso
 ansible.cfg
+.vagrant/*
+output/*
 inventory/*
 bucket/*
 logs/*

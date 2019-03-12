@@ -2,7 +2,7 @@
 awesome_monitor_size: 731 432 #in mm
 awesome_keyboard_layout: de
 awesome_keyboard_variant: nodeadkeys
-awesome_theme_repo: ~ # git@github.com:kolibri/ko-awesome-theme.git
+awesome_theme_repo: git@github.com:kolibri/ko-awesome-theme.git
 awesome_user_name: "{{ ko_user_name }}"
 awesome_user_home: "{{ ko_user_home }}"
 awesome_zsh_custom_dir: "{{ ko_zsh_custom_dir }}"

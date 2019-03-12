@@ -60,6 +60,10 @@ initrd         /initramfs-linux.img
 options        root=PARTUUID=`blkid -s PARTUUID -o value ${DISK}2` rw
 EOL"
 
-umount -R /mnt
+
+/usr/bin/sleep 3
+/usr/bin/umount -R /mnt
+/usr/bin/systemctl reboot
 
 set +e
+
