@@ -6,8 +6,8 @@
     line:  "keycode {{ item.key }} = {{ item.action }}"
     create: true
   with_items:
-    - { key: 115, action: XF86AudioLowerVolume }
-    - { key: 114, action: XF86AudioRaiseVolume }
+    - { key: 114, action: XF86AudioLowerVolume }
+    - { key: 115, action: XF86AudioRaiseVolume }
 
 
 #
