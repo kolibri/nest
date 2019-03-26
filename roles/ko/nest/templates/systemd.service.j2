@@ -3,7 +3,7 @@ Description=Run nest provision
 
 [Service]
 WorkingDirectory={{ nest_path }}/
-ExecStart=ansible-playbook -i inventory/real site.yml -l {{ ko_hostname }}
+ExecStart=ansible-playbook -i inventory/nest site.yml
 Type=oneshot
 
 [Install]

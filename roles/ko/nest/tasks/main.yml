@@ -25,7 +25,7 @@
   become: true
   file:
     state: directory
-    dest: /var/log/ansible/
+    dest: /home/.ko/log/ansible/
     owner: root
     group: root
     mode: 0755
