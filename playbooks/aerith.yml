@@ -1,5 +1,6 @@
 ---
 - hosts: aerith
+  gather_facts: false
   roles:
     - { role: ko/base, become: true, tags: [init] }
     - { role: ko/locale, become: true }
@@ -31,8 +32,23 @@
           - wqy-zenhei # from steam
           - vagrant
           - packer
+          - vlc
+          - libbluray
+          - libaacs
+
+    - name: ensure aacs dir (for blue rays)
+      file:
+        dest: "{{ ko_user_home }}/.config/aacs"
+        state: directory
+
+    - name: ensure blueray codecs/drm stuff
+      get_url:
+        url: https://vlc-bluray.whoknowsmy.name/files/KEYDB.cfg
+        dest: ~/.config/aacs/KEYDB.cfg
+
 
 - hosts: aerith.ko
+  gather_facts: false
   roles:
     - ko/virtualbox
 
