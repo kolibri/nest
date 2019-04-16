@@ -1,0 +1,2 @@
+---
+awesometheme_dir: "{{ ko_user_home }}/.config/awesome"

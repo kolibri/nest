@@ -1,3 +1,9 @@
 ---
 - hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: ensure python
+      raw: sudo bash -c "test -e /usr/bin/python || (pacman -S --noconfirm python)"
+
 - import_playbook: playbooks/aerith.yml
+- import_playbook: playbooks/bugenhagen.yml
