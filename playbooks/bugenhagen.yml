@@ -5,13 +5,13 @@
 - hosts: bugenhagen
   gather_facts: true
   roles:
-#    - { role: ko/base, become: true, tags: [init] }
-#    - { role: ko/locale, become: true }
-#    - ko/git
-#    - ko/zsh
-#    - ko/awesomewm
+    - { role: ko/base, become: true, tags: [init] }
+    - { role: ko/locale, become: true }
+    - { role: ko/nfs-export, become: true }
+    - ko/git
+    - ko/zsh
+    - ko/awesomewm
     - ko/awesometheme
-#    - ko/sublimetext3
 #    - ko/nest
 
   tasks:
@@ -21,6 +21,7 @@
         state: latest
         name:
           - chromium
+          - gdb # for kodi
           - kodi
           - keepassx2
           - vlc

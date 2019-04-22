@@ -13,7 +13,6 @@ local function worker(args)
 	widget:add(table)
 	local icon_timer = timer({timeout = 1})
 
-
 	local function update_table()
 		local temp_max = 0
 		local input_row_fh = assert(io.popen("top -b n1 1 | grep '%Cpu' | sed -n 's/.*Cpu\\([[:digit:]]\\)[[:space:]]*:[[:space:]]*\\([[:digit:]]*,[[:digit:]]*\\) us.*/C0\\1:\\2/p'", "r"))

@@ -1,6 +1,7 @@
 ---
 - hosts: all
   gather_facts: false
+  tags: [always]
   pre_tasks:
     - name: ensure python
       raw: sudo bash -c "test -e /usr/bin/python || (pacman -S --noconfirm python)"

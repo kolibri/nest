@@ -1,2 +1,21 @@
 ---
-# vars file for aweseometheme
+awesometheme_terminal: xterm
+
+awesometheme_launcher:
+  chrm: chromium
+  subl: subl
+
+awesometheme_layouts:
+  - spiral
+  - spiral.dwindle
+  - floating
+  - fair
+  - fair.horizontal
+  - tile
+  - tile.bottom
+  - max
+
+
+
+#awesometheme_keybindings:
+

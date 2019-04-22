@@ -5,7 +5,7 @@
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
   with_items:
-    - { src: "ko_widgets",   dest: "{{ awesometheme_dir }}/" }
+    - { src: "widgets",   dest: "{{ awesometheme_dir }}/" }
     - { src: "theme",   dest: "{{ awesometheme_dir }}/" }
 
 - name: ensure rc files
@@ -17,4 +17,5 @@
     group: root
     mode: 0644
   with_items:
-    - { src: rc.lua.j2, dest: "{{ awesometheme_dir }}/rc.lua" }
+#    - { src: "{{ awesometheme_theme }}.lua.j2", dest: "{{ awesometheme_dir }}/rc.lua" }
+    - { src: "rc.lua.j2", dest: "{{ awesometheme_dir }}/rc.lua" }

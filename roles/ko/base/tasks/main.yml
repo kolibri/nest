@@ -17,8 +17,10 @@
       - base-devel
       - dialog
       - sudo
-      - python2
+#      - python2 # no need because of python3 support?
       - wget
+      - tree
+      - nfs-utils
 #      - dosfstools # @todo: perhaps move this out
 
 - name: ensure dhcp service is enabled

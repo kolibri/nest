@@ -1,15 +1,20 @@
 ---
+# aerith: main desktop. 
+# used for development, gaming, office, etc.
 - hosts: aerith
-  gather_facts: false
+  gather_facts: true
   roles:
     - { role: ko/base, become: true, tags: [init] }
     - { role: ko/locale, become: true }
+    - { role: ko/nfs-client, become: true }
     - ko/git
     - ko/zsh
     - ko/awesomewm
+    - ko/awesometheme
+#    - ko/php-dev
     - ko/sublimetext3
-    - ko/nest
-    - ko/daskeyboard # not finished
+#    - ko/nest
+#    - ko/daskeyboard # not finished
 
   tasks:
     # @todo: update pacman after this / move this out
@@ -35,6 +40,7 @@
           - vlc
           - libbluray
           - libaacs
+          - intellij-idea-community-edition
 
     - name: ensure aacs dir (for blue rays)
       file:

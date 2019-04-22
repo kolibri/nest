@@ -8,6 +8,7 @@
       - xorg-xinput
       - xorg-xinit
       - xf86-video-vesa
+      - xf86-video-fbdev
       - alsa-utils
       - xbindkeys
       - awesome
