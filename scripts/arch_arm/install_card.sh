@@ -13,23 +13,21 @@ if [ $# -eq 2 ]
 	DEVICE=$1
   #wget -O "`dirname $0`/../../bucket/archlinuxarm-rpi2.tar.gz" http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
   
-  sudo umount /root/tmp/boot /root/tmp/root || true
-  sudo sfdisk --delete ${DEVICE}
-  sudo sfdisk ${DEVICE} < "`dirname $0`/disk.sfdisk"
-
-  sudo su root -c "rm -rf /root/tmp/boot /root/tmp/root"
-  sudo su root -c "mkdir -p /root/tmp/boot"
-  sudo su root -c "mkdir -p /root/tmp/root"
+  sudo umount /tmp/rbpi/boot /tmp/rbpi/root || true
+  
+  sudo su root -c "rm -rf /tmp/rbpi/boot /tmp/rbpi/root"
+  sudo su root -c "mkdir -p /tmp/rbpi/boot"
+  sudo su root -c "mkdir -p /tmp/rbpi/root"
   sudo su root -c "mkfs.vfat  ${DEVICE}1"
   sudo su root -c "mkfs.ext4 -F ${DEVICE}2"
 
-  sudo su root -c "mount ${DEVICE}1 /root/tmp/boot"
-  sudo su root -c "mount ${DEVICE}2 /root/tmp/root"
+  sudo su root -c "mount ${DEVICE}1 /tmp/rbpi/boot"
+  sudo su root -c "mount ${DEVICE}2 /tmp/rbpi/root"
 
-  sudo su root -c "bsdtar -xpf $2 -C /root/tmp/root"
+  sudo su root -c "bsdtar -xpf $2 -C /tmp/rbpi/root"
   sudo su root -c "sync"
-  sudo su root -c "mv /root/tmp/root/boot/* /root/tmp/boot"
+  sudo su root -c "mv /tmp/rbpi/root/boot/* /tmp/rbpi/boot"
 
-#  sudo umount /root/tmp/boot /root/tmp/root
-#  sudo su root -c "rm -rf /root/tmp/boot /root/tmp/root"
+#  sudo umount /tmp/rbpi/boot /tmp/rbpi/root
+#  sudo su root -c "rm -rf /tmp/rbpi/boot /tmp/rbpi/root"
 fi

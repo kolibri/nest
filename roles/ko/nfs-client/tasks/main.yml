@@ -1,0 +1,15 @@
+---
+- name: recreate  mount path
+  file: dest={{ item.path }} state=directory
+  with_items: "{{ nfs_client_mounts }}"
+
+
+- name: mount nfs devices
+  mount:
+    path: "{{ item.path }}"
+    src: "{{ item.src }}"
+    fstype: nfs #"{{ item.fs }}"
+    opts: nofail
+    state: mounted
+  with_items: "{{ nfs_client_mounts }}"
+

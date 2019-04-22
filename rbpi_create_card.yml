@@ -1,0 +1,82 @@
+---
+- hosts: localhost
+  gather_facts: no
+  become: yes
+  vars:
+    device: /dev/sdg
+    image: /home/ko/projects/nest/ArchLinuxARM-rpi-2-latest.tar.gz
+    image_url: http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-2-latest.tar.gz
+    dir_matrix:
+      - { dev: "{{ device}}1", fs: vfat, path: /tmp/rbpi/boot }
+      - { dev: "{{ device}}2", fs: ext4, path: /tmp/rbpi/root }
+  tasks:
+    - name: download image
+      get_url:
+        url: "{{ image_url }}"
+        dest: "{{ image }}"
+        mode: 0440
+
+
+    - name: umnount old mounts
+      ignore_errors: yes
+      mount:
+        path: "{{ item }}"
+        state: unmounted
+      with_items: 
+        - /tmp/rbpi/boot
+        - /tmp/rbpi/root
+
+    - name: remove old mount path
+      file: dest={{ item }} state=absent
+      with_items:
+        - /tmp/rbpi/boot
+        - /tmp/rbpi/root
+
+    - name: recreate  mount path
+      file: dest={{ item }} state=directory
+      with_items:
+        - /tmp/rbpi/boot
+        - /tmp/rbpi/root
+
+
+    - name: "create filesystems on target device {{ item }}"
+      filesystem:
+        fstype: "{{ item.fs }}"
+        dev: "{{ item.dev }}"
+        force: yes
+      with_items:
+        - { dev: "{{ device}}1", fs: vfat }
+        - { dev: "{{ device}}2", fs: ext4 }
+
+    - name: mount filesystems
+      mount:
+        path: "{{ item.path }}"
+        src: "{{ item.dev }}"
+        fstype: "{{ item.fs }}"
+        state: mounted
+      with_items:
+        - { dev: "{{ device}}1", fs: vfat, path: /tmp/rbpi/boot }
+        - { dev: "{{ device}}2", fs: ext4, path: /tmp/rbpi/root }
+
+
+#    - unarchive:
+#        src: "{{ image }}"
+#        dest: "{{ dir_matrix[1].path }}"
+#        remote_src: True
+
+    - name: extract image to mountpoint
+      shell: "bsdtar -xpf {{ image }} -C {{ dir_matrix[1].path }} && sync"
+
+    - name: move boot dir
+      shell: "mv {{ dir_matrix[1].path }}/boot/* {{ dir_matrix[0].path }} && sync"
+
+    - name: place ssh file for headless connection
+      file: dest={{ dir_matrix[0].path }}/ssh state=touch
+
+    - name: umnount  mounts
+      mount:
+        path: "{{ item }}"
+        state: unmounted
+      with_items: 
+        - /tmp/rbpi/boot
+        - /tmp/rbpi/root

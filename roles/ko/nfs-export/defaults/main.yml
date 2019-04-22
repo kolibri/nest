@@ -1,0 +1,3 @@
+---
+nfs_client_mounts:
+  - { uuid: '7f649b5b-6bfa-474f-80b3-db2a3024a75f', path: /mnt/nibelheim, fs: ext4 }
