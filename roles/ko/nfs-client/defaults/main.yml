@@ -1,3 +1,2 @@
 ---
-nfs_client_mounts:
-  - { src: "bugenhagen.ko:/mnt/nibelheim", path: /mnt/nibelheim, fs: vfat }
+nfs_client_mounts: []

@@ -24,7 +24,5 @@
   become: true
   package:
     update_cache: yes
-    upgrade: yes
     state: latest
-    name:
-      - sublime-text
+    name: sublime-text

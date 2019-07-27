@@ -2,7 +2,7 @@
 - name: recreate  mount path
   file: dest={{ item.path }} state=directory
   with_items: "{{ nfs_client_mounts }}"
-
+  when: nfs_client_mounts|length > 0
 
 - name: mount nfs devices
   mount:
@@ -12,4 +12,5 @@
     opts: nofail
     state: mounted
   with_items: "{{ nfs_client_mounts }}"
+  when: nfs_client_mounts|length > 0
 
