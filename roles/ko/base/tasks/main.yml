@@ -90,4 +90,11 @@
     key: "{{ lookup('file', ko_authorized_key_file) }}"
   when: ansible_connection != "local"
 
+
+- name: place volume button configs
+  template:
+    src: "asoundrc.j2"
+    dest: "{{ ko_user_home }}/.asoundrc"
+
+
 - include_tasks: fan.yml
