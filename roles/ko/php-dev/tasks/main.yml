@@ -8,6 +8,7 @@
     - unzip
     - php
     - php-sqlite
+    - xdebug
 
 
 - name: php.ini settings
@@ -18,6 +19,12 @@
   with_items: 
     - 'date.timezone=Europe/Berlin'
     - 'extension=iconv'
+    - 'zend_extension=xdebug.so'
+    - 'xdebug.remote_enable=on'
+    - 'xdebug.remote_host=127.0.0.1'
+    - 'xdebug.remote_port=9000'
+    - 'xdebug.remote_handler=dbgp'
+    - 'xdebug.cli_color = 2'
 
 
 - name: check if composer is installed

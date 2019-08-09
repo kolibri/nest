@@ -45,7 +45,7 @@ arch-chroot /mnt ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 arch-chroot /mnt mkinitcpio -p linux
 arch-chroot /mnt /usr/bin/usermod --password `/usr/bin/openssl passwd -crypt 'root'` root
 arch-chroot /mnt systemctl enable dhcpcd
-arch-chroot /mnt echo "PermitRootLogin yes" >> /etc/ssh/sshd_configs
+arch-chroot /mnt echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
 arch-chroot /mnt systemctl enable sshd
 arch-chroot /mnt /usr/bin/bootctl --path=/boot install
 arch-chroot /mnt /bin/bash -c "cat >/boot/loader/loader.conf <<EOL
