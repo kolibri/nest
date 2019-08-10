@@ -8,3 +8,7 @@
   template:
     src: "asoundrc.j2"
     dest: "{{ system_user_info.home }}/.asoundrc"
+
+- name: setup system
+  include: system.yml
+  when: desktop_system_blueray

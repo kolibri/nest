@@ -4,7 +4,7 @@
   package:
     state: "{{ pkg_state|default('present') }}"
     name: 
-#      - virtualbox
+      - virtualbox
       - linux-headers
 #      - virtualbox-host-modules-arch
 

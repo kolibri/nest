@@ -10,7 +10,6 @@
     - php-sqlite
     - xdebug
 
-
 - name: php.ini settings
   become: true
   lineinfile: 
@@ -25,7 +24,6 @@
     - 'xdebug.remote_port=9000'
     - 'xdebug.remote_handler=dbgp'
     - 'xdebug.cli_color = 2'
-
 
 - name: check if composer is installed
   stat: 

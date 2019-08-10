@@ -4,8 +4,8 @@
   gather_facts: true
   roles:
     - { role: desktop/system, become: yes }
-    
     - { role: desktop/awesomewm }
     - { role: desktop/awesometheme }
     - { role: desktop/steam }
-    - { role: packages/gitlab }
+    - { role: packages/aur, pkg_name: qt4 }
+    - { role: packages/aur, pkg_name: keepassx2 }

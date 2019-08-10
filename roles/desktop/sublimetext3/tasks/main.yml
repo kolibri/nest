@@ -6,7 +6,6 @@
     timeout: 6
   register: sublimetext3_pacman_key
 
-
 - name: ensure gpg keys
   become: true
   shell: pacman-key --add /tmp/sublimehq-pub.gpg  && pacman-key --lsign-key 8A8F901A

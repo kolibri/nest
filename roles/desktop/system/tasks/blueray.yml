@@ -1,0 +1,19 @@
+---
+
+- name: ensure base packages
+  become: true
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    name:
+      - libbluray
+      - libaacs
+
+- name: ensure aacs dir for blueray
+  file:
+    dest: "{{ system_user_info.home }}/.config/aacs"
+    state: directory
+
+- name: ensure blueray codecs/drm stuff
+  get_url:
+    url: https://vlc-bluray.whoknowsmy.name/files/KEYDB.cfg
+    dest: ~/.config/aacs/KEYDB.cfg

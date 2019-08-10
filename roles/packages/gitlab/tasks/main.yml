@@ -1,6 +1,0 @@
----
-- name: install gitlab
-  become: true
-  package:
-    state: "{{ pkg_state|default('present') }}"
-    name: gitlab
