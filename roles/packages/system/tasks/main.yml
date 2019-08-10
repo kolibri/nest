@@ -1,0 +1,53 @@
+---
+- name: update pacman
+  pacman:
+    update_cache: yes
+    upgrade: yes
+  register: system_pacman_update_result
+  ignore_errors: True
+
+- name: repair broken pacman
+  include: repair_pacman.yml
+  when: system_pacman_update_result is failed
+
+- name: ensure base packages
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    name:
+      - base-devel
+      - dialog
+      - sudo
+      - wget
+      - tree
+      - nfs-utils
+
+# setup user
+- name: ensure system users group
+  group:
+    name: "{{ system_user_group }}"
+    state: present
+
+- name: ensure system user
+  user:
+    name: "{{ system_user_name }}"
+    groups: "{{ system_user_group }}"
+    append: yes
+    generate_ssh_key: yes
+    password: "{{ system_user_pass }}"
+  register: system_user_info
+
+- name: ensure root privileges for ko user
+  lineinfile:
+    dest: /etc/sudoers
+    state: present
+    regexp: "^{{ system_user_name }} ALL"
+    line: "{{ system_user_name }} ALL=(ALL) NOPASSWD:ALL"
+    validate: "visudo -cf %s"
+
+- name: add authorized key of controll machine
+  authorized_key:
+    user: "{{ system_user_name }}"
+    key: "{{ lookup('file', system_authorized_key_file) }}"
+  when: 
+    - ansible_connection != "local"
+    - system_authorized_key_file != ""

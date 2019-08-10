@@ -1,0 +1,18 @@
+---
+# @todo: update pacman after this / move this out
+- name: enable multilib for steam
+  become: true
+  ini_file:
+    dest:    /etc/pacman.conf
+    section: multilib
+    option:  Include
+    value:   /etc/pacman.d/mirrorlist
+
+- name: ensure steam packages
+  become: true
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    update_cache: yes
+    name:
+      - steam
+      - wqy-zenhei # from steam

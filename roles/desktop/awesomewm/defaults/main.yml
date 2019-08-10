@@ -1,0 +1,9 @@
+---
+
+awesome_user_name: "{{ system_user_name }}"
+awesome_startx_dir: "{{ zsh_custom_dir }}"
+
+awesome_monitor_size: 731 432 #in mm
+awesome_keyboard_layout: de
+awesome_keyboard_variant: nodeadkeys
+awesome_x11_files: []

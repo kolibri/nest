@@ -1,0 +1,3 @@
+---
+
+awesometheme_dir: "{{ system_user_info.home }}/.config/awesome"

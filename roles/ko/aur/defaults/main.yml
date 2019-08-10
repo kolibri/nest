@@ -1,3 +1,0 @@
----
-# makepkg_nonroot_user: "{{ ko_user_name|default(false) }}"
-makepkg_nonroot_user: "{{ ko_user_name|default('ko') }}"

@@ -1,76 +1,11 @@
 ---
   # used as media center and file server
-- hosts: cait-sith
+- hosts: caitsith
   gather_facts: true
   roles:
-    - { role: ko/base, become: true, tags: [init] }
-    - { role: ko/locale, become: true }
-#    - { role: ko/nfs-client, become: true }
-    - ko/git
-    - ko/zsh
-    - ko/awesomewm
-    - ko/awesometheme
-#    - ko/nest
-
-  tasks:
-    # @todo: update pacman after this / move this out
-#    - name: enable multilib for steam
-#      become: true
-#      ini_file:
-#        dest:    /etc/pacman.conf
-#        section: multilib
-#        option:  Include
-#        value:   /etc/pacman.d/mirrorlist
-
-    - name: ensure base packages
-      become: true
-      package:
-        state: latest
-        name:
-          - chromium
-          #- keepassx2
-          #- steam
-          #- wqy-zenhei # from steam
-          #- vagrant
-          #- packer
-          - vlc
-          #- libbluray
-          #- libaacs
-          #- intellij-idea-community-edition
-          - mc
-
-
-#    - name: ensure aacs dir (for blue rays)
-#      file:
-#        dest: "{{ ko_user_home }}/.config/aacs"
-#        state: directory
-#
-#    - name: ensure blueray codecs/drm stuff
-#      get_url:
-#        url: https://vlc-bluray.whoknowsmy.name/files/KEYDB.cfg
-#        dest: ~/.config/aacs/KEYDB.cfg
-
-
-#- hosts: cait-sith.ko
-#  gather_facts: false
-#  roles:
-#    - ko/virtualbox
-#    - { role: ko/aur, pkg_name: phpstorm }
-#    - { role: ko/aur, pkg_name: mprime }
-#
-#  tasks:
-#    - name: ensure base packages for cait-sith
-#      become: true
-#      package:
-#        state: latest
-#        name:
-#          - pulseaudio
-#          - nvidia
-#          - nvidia-utils
-#          - lib32-nvidia-utils
-#    - name: setup sound modprobe config
-#      become: true
-#      modprobe:
-#        name: snd-hda-intel
-#        params: "model=thinkpad"
-#        state: present
+    - { role: desktop/system, become: yes }
+    
+    - { role: desktop/awesomewm }
+    - { role: desktop/awesometheme }
+    - { role: desktop/steam }
+    - { role: packages/gitlab }

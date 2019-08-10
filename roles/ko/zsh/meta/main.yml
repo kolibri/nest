@@ -1,4 +1,0 @@
----
-dependencies:
-#  - { role: ko/base }
- - { role: ko/git }

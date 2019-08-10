@@ -1,0 +1,7 @@
+dependencies:
+  - { role: packages/system }
+  - { role: packages/git }
+  - { role: packages/zsh }
+  - { role: packages/ssh }
+  - { role: packages/locale }
+  - { role: desktop/fan }

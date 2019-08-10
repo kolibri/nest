@@ -1,0 +1,20 @@
+---
+- name: virtualbox packages
+  become: true
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    name: 
+#      - virtualbox
+      - linux-headers
+#      - virtualbox-host-modules-arch
+
+- name: enable service
+  service:
+    name: systemd-modules-load.service
+    enabled: true
+
+- name: Add the 802.1q module
+  become: true
+  modprobe:
+    name: vboxdrv
+    state: present

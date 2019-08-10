@@ -1,0 +1,10 @@
+---
+- name: setup system
+  include: system.yml
+  become: yes
+
+- name: sound card settings
+  become_user: "{{ system_user_name }}"
+  template:
+    src: "asoundrc.j2"
+    dest: "{{ system_user_info.home }}/.asoundrc"

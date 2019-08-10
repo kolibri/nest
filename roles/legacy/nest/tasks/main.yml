@@ -1,0 +1,57 @@
+---
+- name: nest repo
+  git:
+    repo: "{{ nest_repo }}"
+    dest: "{{ nest_path }}"
+    version: "{{nest_branch}}"
+    force: yes
+    accept_hostkey: yes
+
+- name: nest inventory repo
+  git:
+    repo: "{{ nest_inventory_repo }}"
+    dest: "{{ nest_path }}/inventory"
+    force: yes
+    accept_hostkey: yes
+
+- name: original ansible config
+  copy:
+    src: "{{ nest_path }}/ansible.cfg.dist"
+    dest: "{{ nest_path }}/ansible.cfg"
+    remote_src: yes
+    force: false
+
+- name: nest log directory
+  become: true
+  file:
+    state: directory
+    dest: /home/.ko/log/ansible/
+    owner: root
+    group: root
+    mode: 0755
+
+- name: ansible config additional lines
+  ini_file:
+    dest:    "{{ nest_path }}/ansible.cfg"
+    section: defaults
+    option:  "{{ item.name }}"
+    value:   "{{ item.value }}"
+  register: sublimetext3_update_pacman
+  loop:
+    - { name: inventory, value: inventory/real }
+    - { name: log_path,  value: /var/log/ansible/nest.log }
+
+- name: systemd config directory
+  file:
+    state: directory
+    dest: "{{ nest_home }}/.config/systemd/user/"
+
+- name: systemd config
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - { src: systemd.service.j2, dest: "{{ nest_home }}/.config/systemd/user/nest.service" }
+    - { src: systemd.timer.j2, dest: "{{ nest_home }}/.config/systemd/user/nest.timer" }
+  notify:
+    - nest reload systemd

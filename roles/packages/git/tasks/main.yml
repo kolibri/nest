@@ -1,0 +1,20 @@
+---
+- name: install git
+  become: true
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    name:
+      - git
+      - tig
+
+- name: ensure git config
+  ini_file:
+    dest:    "{{ git_user_home }}/.gitconfig"
+    section: "{{ item.ns }}"
+    option:  "{{ item.name }}"
+    value:   "{{ item.value }}"
+  loop:
+    - { ns: user, name: email,        value: "{{ git_user_mail }}" }
+    - { ns: user, name: name,         value: "{{ git_user_name }}" }
+    - { ns: push, name: default,      value: simple }
+    - { ns: core, name: excludesfile, value: "{{ git_user_home }}/.gitignore" }

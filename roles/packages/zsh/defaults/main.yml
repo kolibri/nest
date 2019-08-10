@@ -1,0 +1,5 @@
+---
+zsh_user_home: "{{ ansible_user_dir }}"
+zsh_user_name: "{{ ansible_user_id }}"
+zsh_custom_dir: "{{ zsh_user_home }}/.ko/zsh"
+zsh_plugins: git

@@ -1,0 +1,54 @@
+---
+- name: install awesome packages
+  package:
+    state: "{{ pkg_state|default('present') }}"
+    name:
+      - xorg-server
+      - xorg-xinput
+      - xorg-xinit
+      - xf86-video-vesa
+      - xf86-video-fbdev
+      - alsa-utils
+      - xbindkeys
+      - awesome
+      - vicious
+      - xterm
+      - qt5
+      - iw
+      #- xorg-xdm
+      - qiv
+      - ntp
+      - acpi
+    # fonts
+      - terminus-font
+      - ttf-dejavu
+      - ttf-inconsolata
+      - ttf-bitstream-vera
+      - ttf-linux-libertine
+      - ttf-liberation
+
+- name: ensure autlogin config dir
+  file:
+    state: directory
+    dest: /etc/systemd/system/getty@tty1.service.d/
+
+- name: ensure configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - { src: x11-monitor.conf.j2, dest: /etc/X11/xorg.conf.d/20-monitor.conf }
+    - { src: x11-keyboard.conf.j2, dest: /etc/X11/xorg.conf.d/20-keyboard.conf }
+    - { src: autologin.conf.j2, dest: /etc/systemd/system/getty@tty1.service.d/override.conf }
+
+- name: ensure configuration files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  loop: "{{ awesome_x11_files }}"

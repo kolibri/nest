@@ -1,0 +1,25 @@
+---
+- name: Ensure a locale exists
+  locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ locale_generate }}"
+
+- name: place global locale files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  loop:
+    -
+      src: locale.conf.j2
+      dest: /etc/locale.conf
+    -
+      src: vconsole.conf.j2
+      dest: /etc/vconsole.conf
+
+- name: ensure time settings
+  file:
+    src: "/usr/share/zoneinfo/{{ locale_timezone }}"
+    dest: /etc/localtime
+    state: link
+  when: ansible_os_family == "Archlinux"

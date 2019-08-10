@@ -1,0 +1,9 @@
+desktop_system_sound_card: 0
+desktop_system_sound_device: 0
+desktop_system_hosts: []
+
+desktop_system_packages:
+  - chromium
+  - vlc
+  - mc
+#  - keepassx2 # @todo is aur now
