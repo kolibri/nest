@@ -1,0 +1,28 @@
+---
+
+- name: ensure nfs device mount dir
+  file: dest={{ nfs_export_path }} state=directory
+
+- name: mount nfs device
+  mount:
+    path: "{{ nfs_export_path }}"
+    src: "UUID={{ nfs_export_uuid }}"
+    fstype: "{{ nfs_export_fs }}"
+    state: mounted
+
+- name: ensure nfs is exported
+  lineinfile:
+    path: /etc/exports
+    regexp: '^{{ nfs_export_path }}'
+    line: "{{ nfs_export_path }} {{ nfs_export_permission }}"
+    create: yes
+  notify: [restart nfs services]
+  
+- name: enable nfs services
+  service:
+    name: "{{ item }}"
+    enabled: yes
+  notify: [restart nfs services]
+  loop: 
+    - rpcbind
+    - nfs-server

@@ -1,0 +1,15 @@
+---
+
+- name: recreate mount path
+  file: 
+    dest: "{{ nfs_client_path }}"
+    state: directory
+
+- name: mount nfs
+  mount:
+    path: "{{ nfs_client_path }}"
+    src: "{{ nfs_client_src }}"
+    fstype: nfs
+    opts: nofail
+    state: mounted
+

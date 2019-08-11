@@ -1,0 +1,31 @@
+---
+- name: ensure nfs-utils is installed
+  become: true
+  package: 
+    state: "{{ pkg_state|default('present') }}"
+    name: nfs-utils
+
+- name: ensure nfs exports
+  include_role:
+    name: packages/nfs-export
+    apply:
+      become: yes
+  vars:
+    nfs_export_mounts: "{{ item }}"
+    nfs_export_fs: "{{ item.fs }}"
+    nfs_export_path: "{{ item.path }}"
+    nfs_export_permission: "{{ item.permission }}"
+    nfs_export_uuid: "{{ item.uuid }}"
+  when: inventory_hostname == item.host
+  loop: "{{ desktop_nfs }}"
+
+- name: ensure nfs clients
+  include_role:
+    name: packages/nfs-client
+    apply:
+      become: yes
+  vars:
+    nfs_client_path: "{{ item.path }}"
+    nfs_client_src: "{{ item.host }}:{{ item.path }}"
+  when: inventory_hostname != item.host
+  loop: "{{ desktop_nfs }}"

@@ -1,0 +1,5 @@
+---
+nfs_export_fs: ~
+nfs_export_path: ~
+nfs_export_permission: ~
+nfs_export_uuid: ~

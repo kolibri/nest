@@ -7,5 +7,6 @@
     - { role: desktop/awesomewm }
     - { role: desktop/awesometheme }
     - { role: desktop/steam }
+    - { role: desktop/nfs }
     - { role: packages/aur, pkg_name: qt4 }
     - { role: packages/aur, pkg_name: keepassx2 }

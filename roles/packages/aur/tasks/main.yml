@@ -30,7 +30,9 @@
   git:
     repo: "https://aur.archlinux.org/{{ pkg_name }}.git"
     dest: /tmp/{{ pkg_name }}
-  when: api_info.json.results.Version != pacman_query_result.stdout
+  when: 
+    - api_info.json.results.Version != pacman_query_result.stdout
+    - aur_pkg_state == 'latest'
   register: extracted_pkg
 
 # This will break if run as root. Set user to use with makepkg with 'makepkg_user' var

@@ -1,2 +1,3 @@
 ---
 makepkg_nonroot_user: "{{ ansible_user_id }}"
+aur_pkg_state: "{{ pkg_state|default('present') }}"
