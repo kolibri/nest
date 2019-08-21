@@ -4,7 +4,7 @@
   become: yes
 
 - name: sound card settings
-  become_user: "{{ system_user_name }}"
+  become_user: "{{ system_user_name }}" # noqa 501
   template:
     src: "asoundrc.j2"
     dest: "{{ system_user_info.home }}/.asoundrc"

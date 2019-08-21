@@ -52,3 +52,10 @@
     group: root
     mode: 0644
   loop: "{{ awesome_x11_files }}"
+
+- name: bypass root with xwrapper
+  copy:
+    src: "Xwrapper.config"
+    dest: "/etc/X11/Xwrapper.config"
+    owner: root
+    group: root

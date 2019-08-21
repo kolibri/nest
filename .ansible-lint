@@ -1,0 +1,19 @@
+#exclude_paths:
+#  - ./my/excluded/directory/
+#  - ./my/other/excluded/directory/
+#  - ./last/excluded/directory/
+parseable: true
+#quiet: true
+#rulesdir:
+#  - ./rule/directory/
+skip_list:
+#  - skip_this_tag
+#  - and_this_one_too
+#  - skip_this_id
+  - '701'
+  - '306'
+  - '301'
+#tags:
+#  - run_this_tag
+#use_default_rules: true
+#verbosity: 1

@@ -1,12 +1,12 @@
 ---
 - name: ensure archlinux-keyring is up to date
-  pacman:
+  pacman: # noqa 403
     name: archlinux-keyring
     state: latest
     update_cache: yes
 
 - name: remove pacman cache
-  shell: pacman -Scc
+  shell: pacman -Scc # noqa 305
   when: ansible_pkg_mgr == "pacman"
 
 - name: upgrade pacman (again)

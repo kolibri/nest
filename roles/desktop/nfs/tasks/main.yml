@@ -1,7 +1,7 @@
 ---
 - name: ensure nfs-utils is installed
   become: true
-  package: 
+  package:
     state: "{{ pkg_state|default('present') }}"
     name: nfs-utils
 

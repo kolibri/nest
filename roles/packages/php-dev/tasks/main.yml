@@ -12,10 +12,10 @@
 
 - name: php.ini settings
   become: true
-  lineinfile: 
+  lineinfile:
     dest: '/etc/php/php.ini'
     line: "{{ item }}"
-  loop: 
+  loop:
     - 'date.timezone=Europe/Berlin'
     - 'extension=iconv'
     - 'zend_extension=xdebug.so'
@@ -26,7 +26,7 @@
     - 'xdebug.cli_color = 2'
 
 - name: check if composer is installed
-  stat: 
+  stat:
     path: /usr/local/bin/composer
   register: composer_state
 
@@ -45,7 +45,7 @@
   - name: install composer
     become: true
     command: php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-  when: composer_state.stat.exists == false
+  when: composer_state.stat.exists is False
 
 #    - name: copy xdebug script
 #      become: true

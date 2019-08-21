@@ -48,6 +48,6 @@
   authorized_key:
     user: "{{ system_user_name }}"
     key: "{{ lookup('file', system_authorized_key_file) }}"
-  when: 
+  when:
     - ansible_connection != "local"
-    - system_authorized_key_file != ""
+    - system_authorized_key_file is not empty

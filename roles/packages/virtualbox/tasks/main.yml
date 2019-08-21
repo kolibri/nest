@@ -3,7 +3,7 @@
   become: true
   package:
     state: "{{ pkg_state|default('present') }}"
-    name: 
+    name:
       - virtualbox
       - linux-headers
 #      - virtualbox-host-modules-arch
