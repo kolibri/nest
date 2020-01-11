@@ -1,18 +1,18 @@
 ---
-  # used as media center and file server
 - hosts: aerith
   gather_facts: true
   roles:
-    - { role: desktop/system, become: yes }
-    - { role: desktop/nfs }
-    - { role: desktop/awesomewm }
-    - { role: desktop/awesometheme }
-    - { role: desktop/steam }
-    - { role: desktop/sublimetext3 }
-    - { role: packages/php-dev }
-    - { role: packages/virtualbox }
-    - { role: packages/aur, pkg_name: keepassx2 }
-    - { role: packages/aur, pkg_name: phpstorm }
-    - { role: packages/aur, pkg_name: mprime }
+#    - { role: desktop/system, become: yes }
+#    - { role: desktop/nfs }
+#    - { role: desktop/awesomewm }
+#    - { role: desktop/awesometheme }
+#    - { role: desktop/steam }
+#    - { role: desktop/sublimetext3 }
+#    - { role: packages/php-dev }
+#    - { role: packages/virtualbox }
+#    - { role: packages/aur, pkg_name: keepassx2 }
+#    - { role: packages/aur, pkg_name: phpstorm }
+#    - { role: packages/aur, pkg_name: mprime }
+    - { role: packages/aur, pkg_name: godot }
 #    - desktop/daskeyboard # not finished
 #    - dev/arduino
