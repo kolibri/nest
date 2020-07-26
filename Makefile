@@ -8,3 +8,7 @@ system-init:
 
 provision:
 	ansible-playbook -v -i inventory/$(INVENTORY) -l $(HOST) site.yml
+
+
+create-usb-stick-arch:
+	sudo dd bs=4M if=$(ARCH_ISO_PATH) of=$(TARGET_DEVICE) status=progress

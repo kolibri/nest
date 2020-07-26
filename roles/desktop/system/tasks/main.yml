@@ -10,5 +10,5 @@
     dest: "{{ system_user_info.home }}/.asoundrc"
 
 - name: setup system
-  include: system.yml
+  include: blueray.yml
   when: desktop_system_blueray

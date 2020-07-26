@@ -50,4 +50,4 @@
     key: "{{ lookup('file', system_authorized_key_file) }}"
   when:
     - ansible_connection != "local"
-    - system_authorized_key_file is not empty
+    - system_authorized_key_file|length > 0

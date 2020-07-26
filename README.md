@@ -57,4 +57,4 @@ On control system:
 
 ```bash
 ssh-copy-id root@NEW-HOST
-ssh root@NEW-HOST 'bash -c' < scripts/arch_x64/install.sh
+ssh root@NEW-HOST 'bash -s' < scripts/arch_x64/install.sh

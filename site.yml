@@ -8,6 +8,7 @@
 
 - import_playbook: playbooks/aerith.yml
 - import_playbook: playbooks/cait-sith.yml
+- import_playbook: playbooks/cid.yml
 
 
 #- host: init
